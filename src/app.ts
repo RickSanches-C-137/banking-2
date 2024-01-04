@@ -31,7 +31,12 @@ const requireLogin = (req, res, next) => {
 app.get("/", (req: Request, res: Response) => {
   res.render("index.ejs");
 });
-
+app.get("/commercial", (req: Request, res: Response) => {
+  res.render("commercial.ejs");
+});
+app.get("/faqs", (req: Request, res: Response) => {
+  res.render("faqs.ejs");
+});
 app.post("/fund-transfer", requireLogin, (req: Request, res: Response) => {
   const authCookie = req.cookies.auth;
   const { bankName, amount, accNumber, userId, status, type } = req.body;

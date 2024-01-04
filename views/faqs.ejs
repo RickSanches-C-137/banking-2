@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <title>Banking System FAQ</title>
+</head>
+
+<body class="bg-gray-100 p-8">
+  <nav class="md:bg-gray-100 bg-green-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-9">
+        <div class="flex-shrink-0">
+          <!-- Logo or Branding -->
+          <a href="/" class="text-gray-900 underline">Personal</a>
+          <a href="/commercial" class="text-gray-900">Commercial</a>
+        </div>
+        <div class="hidden md:block">
+          <!-- Desktop Navbar links -->
+          <ul class="ml-4 flex space-x-8 space-y-auto">
+
+            <li>
+              <a href="#about" class="text-gray-900 hover:text-green-500">About Us</a>
+            </li>
+
+            <li>
+              <a href="/faqs" class="text-gray-900 hover:text-green-500">FAQs</a>
+            </li>
+            <li>
+              <a href="#contact" class="text-gray-900 hover:text-green-500">Contact Us</a>
+            </li>
+
+
+            </li>
+          </ul>
+        </div>
+        <!-- Mobile menu button -->
+        <div class="md:hidden">
+          <button id="mobile-menu-button" class="text-white focus:outline-none">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Navbar links (hidden by default) -->
+      <div class="hidden" id="mobile-menu">
+        <ul class="space-y-2">
+          <li>
+            <a href="#about" class="text-gray-900 hover:text-green-500">About Us</a>
+          </li>
+
+          <li>
+            <a href="/faqs" class="text-gray-900 hover:text-green-500">FAQs</a>
+          </li>
+          <li>
+            <a href="#contact" class="text-gray-900 hover:text-green-500">Contact Us</a>
+          </li>
+
+          <li>
+            <a href="/signup">
+              <button class="bg-yellow-600 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-sm">
+                Sign up
+              </button>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="max-w-2xl mx-auto bg-white p-8 rounded shadow-md">
+
+    <h1 class="text-2xl font-semibold mb-6">Banking System FAQ</h1>
+
+    <!-- FAQ Section -->
+    <div class="space-y-4">
+      <!-- FAQ Item 1 -->
+      <div class="border-b py-4">
+        <div class="flex justify-between items-center">
+          <h2 class="text-lg font-semibold">How do I open a new bank account?</h2>
+          <button class="text-blue-500 hover:underline focus:outline-none" onclick="toggleAnswer('answer1')">Show
+            Answer</button>
+        </div>
+        <div id="answer1" class="hidden mt-2 text-gray-600">To open a new bank account, visit our nearest branch with
+          valid identification and proof of address. Our staff will assist you in the account opening process.</div>
+      </div>
+
+      <!-- FAQ Item 2 -->
+      <div class="border-b py-4">
+        <div class="flex justify-between items-center">
+          <h2 class="text-lg font-semibold">What are the fees associated with my account?</h2>
+          <button class="text-blue-500 hover:underline focus:outline-none" onclick="toggleAnswer('answer2')">Show
+            Answer</button>
+        </div>
+        <div id="answer2" class="hidden mt-2 text-gray-600">Account fees may vary based on the type of account you have.
+          Please refer to our fee schedule or contact our customer service for detailed information on account fees.
+        </div>
+      </div>
+
+      <!-- FAQ Item 3 -->
+      <div class="border-b py-4">
+        <div class="flex justify-between items-center">
+          <h2 class="text-lg font-semibold">How do I reset my online banking password?</h2>
+          <button class="text-blue-500 hover:underline focus:outline-none" onclick="toggleAnswer('answer3')">Show
+            Answer</button>
+        </div>
+        <div id="answer3" class="hidden mt-2 text-gray-600">To reset your online banking password, visit our website's
+          login page and click on the "Forgot Password" link. Follow the instructions to reset your password securely.
+        </div>
+      </div>
+
+      <!-- Add more FAQ items as needed -->
+
+    </div>
+
+  </div>
+
+  <!-- JavaScript for toggling answer visibility -->
+  <script>
+    function toggleAnswer(answerId) {
+      const answer = document.getElementById(answerId);
+      answer.style.display = answer.style.display === 'none' || answer.style.display === '' ? 'block' : 'none';
+    }
+  </script>
+
+</body>
+
+</html>
