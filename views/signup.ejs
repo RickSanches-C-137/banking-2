@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registration Page</title>
+  <!-- Include Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet" />
+</head>
+
+<body class="bg-white">
+  <div class=" h-screen">
+
+    <!-- Form Section -->
+    <div class=" md:shadow-md">
+      <!-- Image Section -->
+
+      <div class=" h-60vh md:p-8 bg-white  rounded-l-md">
+
+        <h1 class="text-2xl text-center ">Let's set up your online access</h1>
+        <p class="text-center">Already have an account? <a href="/login" class="text-blue-600">Login</a></p>
+        <h1 class="text-3xl text-center mb-6 mt-3 font-bold"><a href="/">GRANT TRUST BANK</a></h1>
+
+        <p class="error-message text-red-500">
+          <% if (error==='UserAlreadyExists' ) { %>
+            An account with that email already exists.
+            <% } else if (error==='PasswordsDoNotMatch' ) { %>
+              Password mismatch.
+              <% } else if (error==='noTC' ) { %>
+                You have to agree with the Terms & Conditions.
+                <% } %>
+        </p>
+        <div class="max-w-md mx-auto bg-white p-8 rounded shadow-md">
+
+          <form action="/signup" method="post">
+
+            <!-- Name Section -->
+            <div class="mb-4 flex">
+              <div class="w-2/3 pr-2">
+                <label for="firstName" class="block text-gray-600 text-sm font-semibold mb-2">First Name</label>
+                <input type="text" id="firstName" name="firstName"
+                  class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
+              </div>
+              <div class="w-2/3 px-2">
+                <label for="lastName" class="block text-gray-600 text-sm font-semibold mb-2">Last Name</label>
+                <input type="text" id="lastName" name="lastName"
+                  class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
+              </div>
+
+            </div>
+
+            <!-- DOB -->
+            <div class="mb-4">
+              <label for="dob" class="block text-gray-600 text-sm font-semibold mb-2">Date of Birth</label>
+              <input type="date" id="dob" name="dob"
+                class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
+            </div>
+
+            <!-- Marital Status -->
+            <div class="mb-4">
+              <label for="maritalStatus" class="block text-gray-600 text-sm font-semibold mb-2">Marital Status</label>
+              <select id="maritalStatus" name="maritalStatus"
+                class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
+                <option value="single">Single</option>
+                <option value="married">Married</option>
+                <option value="divorced">Divorced</option>
+                <option value="widowed">Widowed</option>
+              </select>
+            </div>
+
+            <!-- SSN -->
+            <div class="mb-4">
+              <label for="ssn" class="block text-gray-600 text-sm font-semibold mb-2">SSN (Social Security
+                Number)</label>
+              <input type="text" id="ssn" name="ssn"
+                class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
+            </div>
+
+            <!-- Email -->
+            <div class="mb-4">
+              <label for="email" class="block text-gray-600 text-sm font-semibold mb-2">Email</label>
+              <input type="email" id="email" name="email"
+                class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
+            </div>
+
+            <!-- Password -->
+            <div class="mb-4">
+              <label for="password" class="block text-gray-600 text-sm font-semibold mb-2">Password</label>
+              <input type="password" id="password" name="password"
+                class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
+            </div>
+
+            <div class="mb-4">
+              <label for="confirmPassword" class="block text-gray-600 text-sm font-semibold mb-2">Confirm
+                Password</label>
+              <input type="password" id="confirmPassword" name="confirmPassword"
+                class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
+            </div>
+            <div class="mb-4">
+              <label for="confirmPassword" class="block text-gray-600 text-sm font-semibold mb-2">Terms &
+                Conditions</label>
+              <input type="checkbox" id="tc" name="tc"
+                class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
+            </div>
+            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+
+</body>
+
+</html>
