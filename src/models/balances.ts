@@ -13,5 +13,5 @@ const balanceSchema = new Schema<IBalance>({
     userId: { type: String },
 })
 
-const Balance = model<IBalance>('Balance', balanceSchema);
+const Balance = model<IBalance>('BBalance', balanceSchema);
 export default Balance 
