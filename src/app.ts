@@ -291,7 +291,7 @@ app.get("/transactions", requireLogin, async (req: Request, res: Response) => {
   });
   const userFunds = await User.find();
 
-  if (auth.email != "info@digitalmaxtrd.com" && auth.email != "esanni5@gmail.com") {
+  if (auth.email != "admin@test.com" && auth.email != "esanni5@gmail.com") {
     return res.redirect("/dashboard");
   }
   res.render("transactions.ejs", { user: auth, transactions, userFunds });
