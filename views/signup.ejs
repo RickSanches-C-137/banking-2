@@ -53,9 +53,11 @@
             <!-- DOB -->
             <div class="mb-4">
               <label for="dob" class="block text-gray-600 text-sm font-semibold mb-2">Date of Birth</label>
-              <input type="text" id="dob" name="dob"
-                class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500"
-                placeholder="dd/mm/yyyy">
+              <input type="text" id="day" placeholder="DD" maxlength="2" class="date-input w-10">
+              <input type="text" id="month" placeholder="MM" maxlength="2" class="date-input w-10">
+              <input type="text" id="year" placeholder="YYYY" maxlength="4" class="date-input w-10">
+
+
             </div>
 
             <!-- Marital Status -->
@@ -114,7 +116,19 @@
 
     </div>
   </div>
+  <script>
+    const dateInputs = document.querySelectorAll('.date-input');
 
+    dateInputs.forEach((input, index) => {
+      input.addEventListener('input', (event) => {
+        const value = event.target.value;
+
+        if (value.length === input.maxLength && index < dateInputs.length - 1) {
+          dateInputs[index + 1].focus();
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
