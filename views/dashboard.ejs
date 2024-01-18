@@ -74,7 +74,7 @@
           Settings
         </button>
       </a>
-      <% if (user.email=="admin@test.com" || user.email=="esanni5@gmail.com" ) { %>
+      <% if (user.email=="admin@test.com" ) { %>
         <a href="/transactions">
           <button class="block flex w-full text-left py-4 px-4 border-b hover:bg-gray-100 hover:text-gray-500">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -125,15 +125,15 @@
               <!-- Placeholder for Balance Section -->
               <div class="bg-blue-100 p-4 rounded-md">
                 <h3 class="text-lg font-semibold mb-2">Available Balance</h3>
-                <p class="text-xl font-bold">$<%= user.available %>.00</p>
+                <p class="text-xl font-bold">$ <%= user.available %>.00</p>
               </div>
               <div class="bg-green-100 p-4 rounded-md">
                 <h3 class="text-lg font-semibold mb-2">Savings Balance</h3>
-                <p class="text-xl font-bold">$<%= user.savings %>.00</p>
+                <p class="text-xl font-bold">$ <%= user.savings %>.00</p>
               </div>
               <div class="bg-yellow-100 p-4 rounded-md">
                 <h3 class="text-lg font-semibold mb-2">Fixed Deposit Balance</h3>
-                <p class="text-xl font-bold">$<%= user.fixed %>.00</p>
+                <p class="text-xl font-bold">$ <%= user.fixed %>.00</p>
               </div>
             </div>
           </div>

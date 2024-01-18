@@ -56,7 +56,7 @@ app.post("/fund-transfer", requireLogin, (req: Request, res: Response) => {
     data.type = "Outgoing-Transfer";
     const deposit = Transaction.create(data);
     const message = "Transaction pending"; // Set the success message
-    res.render("wallet-address.ejs", { message });
+    res.render("history.ejs", { user: auth, message });
   } catch (err) {
     console.log(err);
   }
