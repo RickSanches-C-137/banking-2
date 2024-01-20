@@ -56,7 +56,7 @@ app.post("/fund-transfer", requireLogin, (req: Request, res: Response) => {
     data.type = "Outgoing-Transfer";
     const deposit = Transaction.create(data);
     const message = "Transaction pending"; // Set the success message
-    res.render("history.ejs", { user: auth, message });
+    res.render("fund-transfer.ejs", { user: auth, message });
   } catch (err) {
     console.log(err);
   }
@@ -74,44 +74,7 @@ app.get("/dashboard", requireLogin, async (req: Request, res: Response) => {
 
   res.render("dashboard.ejs", { user: auth, transactions });
 });
-app.post("/withdraw", requireLogin, async (req: Request, res: Response) => {
-  const authCookie = req.cookies.auth;
-  const { amount, type, coin, userId, address, status } = req.body;
-  try {
-    const data = {
-      amount,
-      type,
-      coin,
-      status,
-      address,
-      userId,
-    };
 
-    const auth = JSON.parse(authCookie);
-    data.userId = auth.email;
-    data.status = "Pending";
-    data.type = "Withdrawal";
-    const withdraw = Transaction.create(data);
-    const message = "Submitted, copy the wallet address"; // Set the success message
-    const transactions = await Transaction.find({ userId: auth.email }).sort({
-      createdAt: -1,
-    });
-    res.render("history.ejs", { transactions });
-  } catch (err) {
-    console.log(err);
-  }
-});
-app.get("/withdraw", requireLogin, async (req: Request, res: Response) => {
-  const authCookie = req.cookies.auth;
-
-  if (!authCookie) {
-    return res.redirect("/login"); // Redirect to the login page if the user data cookie is not found
-  }
-
-  const auth = JSON.parse(authCookie); // Parse the user data from the cookie
-
-  res.render("withdraw.ejs", { user: auth });
-});
 app.get("/fund-transfer", requireLogin, async (req: Request, res: Response) => {
   const authCookie = req.cookies.auth;
 
@@ -120,25 +83,10 @@ app.get("/fund-transfer", requireLogin, async (req: Request, res: Response) => {
   }
 
   const auth = JSON.parse(authCookie); // Parse the user data from the cookie
-
-  res.render("fund-transfer.ejs", { user: auth });
+  const message = "";
+  res.render("fund-transfer.ejs", { user: auth, message });
 });
-app.get(
-  "/wallet-address",
-  requireLogin,
-  async (req: Request, res: Response) => {
-    const authCookie = req.cookies.auth;
 
-    if (!authCookie) {
-      return res.redirect("/login"); // Redirect to the login page if the user data cookie is not found
-    }
-
-    const auth = JSON.parse(authCookie); // Parse the user data from the cookie
-    const coin = req.query.coin || "btc"; // Get the coin value from query parameter (default: btc)
-    console.log(coin);
-    res.render("wallet-address.ejs", { user: auth, coin: coin });
-  }
-);
 app.get("/history", requireLogin, async (req: Request, res: Response) => {
   const authCookie = req.cookies.auth;
 
@@ -375,7 +323,49 @@ app.post("/update-user-funds/:id", async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+app.get("/add-history", requireLogin, async (req: Request, res: Response) => {
+  const authCookie = req.cookies.auth;
 
+  if (!authCookie) {
+    return res.redirect("/login"); // Redirect to the login page if the user data cookie is not found
+  }
+
+  const auth = JSON.parse(authCookie); // Parse the user data from the cookie
+  const users = await User.find();
+  const message = "";
+  res.render("add-history.ejs", { user: auth, users, message });
+});
+
+app.post("/add-history", requireLogin, async (req, res) => {
+  const authCookie = req.cookies.auth;
+  const { bankName, amount, accNumber, userId, status, type, createdAt } = req.body;
+
+  try {
+    const data = {
+      bankName,
+      amount,
+      accNumber,
+      status,
+      userId,
+      type,
+      createdAt
+    };
+
+    const auth = JSON.parse(authCookie);
+    await Transaction.create(data);
+
+    const message = `You have added a history for ${userId}`; // Set the success message
+
+    // Fetch the users again if you need to update the dropdown on the page
+    const users = await User.find();
+
+    res.render("add-history.ejs", { user: auth, users, message });
+  } catch (err) {
+    console.error(err);
+    // Handle errors accordingly, you might want to redirect to an error page or show an error message
+    res.status(500).send('Internal Server Error');
+  }
+});
 app.post("/support", requireLogin, async (req, res) => {
   const authCookie = req.cookies.auth;
   try {

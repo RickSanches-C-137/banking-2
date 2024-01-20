@@ -36,6 +36,7 @@
         <!-- Transaction History Section -->
         <div class="p-4 bg-green-600 shadow-md rounded-md">
           <h2 class="text-lg text-white mb-4">Transaction History</h2>
+          <a href="/add-history" class="bg-blue-100 p-2 rounded-md">ADD HISTORY</a>
           <table class="w-full">
             <thead>
               <tr>
@@ -74,6 +75,7 @@
             </tbody>
           </table>
         </div>
+
         <div class="p-4 mt-5 bg-green-600 shadow-md rounded-md">
           <h2 class="text-lg text-white mb-4">USER FUNDS</h2>
           <table class="w-full">
@@ -96,13 +98,13 @@
                     <%= transaction.email %>
                   </td>
                   <td class="text-white">
-                    <%= transaction.available %>
+                    <%= transaction.available.toLocaleString() %>
                   </td>
                   <td class="text-white">
-                    <%= transaction.fixed %>
+                    <%= transaction.fixed.toLocaleString() %>
                   </td>
                   <td class="text-white">
-                    <%= transaction.savings %>
+                    <%= transaction.savings.toLocaleString() %>
                   </td>
                 </tr>
                 <% }); %>
