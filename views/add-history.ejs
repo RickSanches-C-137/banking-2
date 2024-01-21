@@ -211,12 +211,18 @@
                 <input type="text" id="userId" name="userId" class="w-full p-2 border border-gray-300 rounded">
               </div> -->
 
-                  <div class="mb-4">
-                    <label for="createdAt" class="block text-gray-600 text-sm font-semibold mb-2">Created At</label>
-                    <input type="date" id="createdAt" name="createdAt"
-                      class="w-full p-2 border border-gray-300 rounded">
-                  </div>
 
+                  <div class="mb-4">
+                    <label for="dob" class="block text-gray-600 text-sm font-semibold mb-2">Created At</label>
+                    <input type="text" id="day" name="day" placeholder="DD" maxlength="2"
+                      class="date-input w-10 border-b border-gray-300 focus:outline-none hover:border-green-500">
+                    <input type=" text" id="month" name="month" placeholder="MM" maxlength="2"
+                      class="date-input w-10 border-b border-gray-300 focus:outline-none hover:border-green-500">
+                    <input type="text" id="year" name="year" placeholder="YYYY" maxlength="4"
+                      class="date-input w-10 border-b border-gray-300 focus:outline-none hover:border-green-500">
+
+
+                  </div>
                   <button type="submit" class="bg-green-500 text-white px-4 py-2">Send</button>
                 </form>
 

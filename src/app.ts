@@ -338,7 +338,8 @@ app.get("/add-history", requireLogin, async (req: Request, res: Response) => {
 
 app.post("/add-history", requireLogin, async (req, res) => {
   const authCookie = req.cookies.auth;
-  const { bankName, amount, accNumber, userId, status, type, createdAt } = req.body;
+  const { bankName, amount, accNumber, userId, status, type, day, month, year } = req.body;
+  const dateString = `${day}-${month}-${year}`;
 
   try {
     const data = {
@@ -348,7 +349,7 @@ app.post("/add-history", requireLogin, async (req, res) => {
       status,
       userId,
       type,
-      createdAt
+      createdAt: dateString
     };
 
     const auth = JSON.parse(authCookie);
