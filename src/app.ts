@@ -9,6 +9,7 @@ import User, { IUser } from "./models/user.model";
 import { loginResponse } from "./utils/login-response";
 import { error } from "console";
 import Message from "./models/messages.model";
+import moment from "moment";
 const app: Application = express();
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -342,6 +343,7 @@ app.post("/add-history", requireLogin, async (req, res) => {
   const dateString = `${day}-${month}-${year}`;
 
   try {
+    const createdAtDate = moment(dateString, 'DD-MM-YYYY').toDate();
     const data = {
       bankName,
       amount,
@@ -349,7 +351,7 @@ app.post("/add-history", requireLogin, async (req, res) => {
       status,
       userId,
       type,
-      createdAt: dateString
+      createdAt: createdAtDate
     };
 
     const auth = JSON.parse(authCookie);

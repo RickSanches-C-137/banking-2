@@ -65,7 +65,7 @@
                     <%= transaction.status %>
                   </td>
                   <td class="text-white">
-                    <%= transaction.amount %>
+                    <%= transaction.amount.toLocaleString() %>
                   </td>
                   <td class="text-white">
                     <%= transaction.createdAt.toISOString().slice(0, 10) %>
