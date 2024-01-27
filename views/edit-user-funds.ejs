@@ -41,8 +41,6 @@
               <input type="text" id="available" name="available" value="<%= transaction.available %>"
                 class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white placeholder-gray-500">
             </div>
-
-
             <div class="mb-4">
               <label class="block text-white font-bold mb-1" for="ethereum">Fixed:</label>
               <input type="text" id="fixed" name="fixed" value="<%= transaction.fixed %>"
@@ -52,6 +50,14 @@
               <label class="block text-white font-bold mb-1" for="ethereum">Savings:</label>
               <input type="text" id="savings" name="savings" value="<%= transaction.savings %>"
                 class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white placeholder-gray-500">
+            </div>
+            <div class="mb-4">
+              <label class="block text-white font-bold mb-1" for="status">Status:</label>
+              <select id="status" name="status"
+                class="w-full bg-gray-800 border border-gray-700 rounded px-3 py-2 text-white placeholder-gray-500">
+                <option value="0">Freeze</option>
+                <option value="1">Unfreeze</option>
+              </select>
             </div>
             <!-- Add other input fields for other transaction properties -->
             <button type="submit" class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded">

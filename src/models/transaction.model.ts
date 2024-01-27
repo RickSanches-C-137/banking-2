@@ -3,6 +3,7 @@ import { Schema, model } from 'mongoose';
 export interface ITransaction {
     desc: string,
     bankName: string,
+    recipientName: string,
     status: string,
     amount: number,
     accNumber: string,
@@ -13,6 +14,7 @@ export interface ITransaction {
 const transactionSchema = new Schema<ITransaction>({
     desc: { type: String },
     bankName: { type: String },
+    recipientName: { type: String },
     status: { type: String },
     amount: { type: Number },
     accNumber: { type: String },

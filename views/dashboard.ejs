@@ -183,6 +183,7 @@
               <th class="py-2 px-4 text-gray-500">Amount</th>
               <th class="py-2 px-4 text-gray-500">Status</th>
               <th class="py-2 px-4 text-gray-500">Recipient Acc No.</th>
+              <th class="py-2 px-4 text-gray-500">Recipient Name</th>
             </tr>
           </thead>
           <tbody>
@@ -203,6 +204,9 @@
                 </td>
                 <td class="py-2 px-4 text-center text-gray-500">
                   <%= transaction.accNumber %>
+                </td>
+                <td class="py-2 px-4 text-center text-gray-500">
+                  <%= transaction.recipientName %>
                 </td>
               </tr>
               <% }); %>

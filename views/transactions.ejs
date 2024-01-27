@@ -46,6 +46,7 @@
                 <th class="text-left text-white">Status</th>
                 <th class="text-left text-white">Amount</th>
                 <th class="text-left text-white">Date</th>
+                <th class="text-left text-white">Recipient</th>
               </tr>
             </thead>
             <tbody>
@@ -70,6 +71,9 @@
                   <td class="text-white">
                     <%= transaction.createdAt.toISOString().slice(0, 10) %>
                   </td>
+                  <td class="text-white">
+                    <%= transaction.recipientName %>
+                  </td>
                 </tr>
                 <% }); %>
             </tbody>
@@ -77,7 +81,7 @@
         </div>
 
         <div class="p-4 mt-5 bg-green-600 shadow-md rounded-md">
-          <h2 class="text-lg text-white mb-4">USER FUNDS</h2>
+          <h2 class="text-lg text-white mb-4">USER ACCOUNT</h2>
           <table class="w-full">
             <thead>
               <tr>
@@ -86,6 +90,7 @@
                 <th class="text-left text-white">Available</th>
                 <th class="text-left text-white">Savings</th>
                 <th class="text-left text-white">Fixed</th>
+                <th class="text-left text-white">Is active</th>
               </tr>
             </thead>
             <tbody>
@@ -105,6 +110,9 @@
                   </td>
                   <td class="text-white">
                     <%= transaction.savings.toLocaleString() %>
+                  </td>
+                  <td class="text-white">
+                    <%= transaction.status %>
                   </td>
                 </tr>
                 <% }); %>

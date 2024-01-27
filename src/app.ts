@@ -84,8 +84,14 @@ app.get("/fund-transfer", requireLogin, async (req: Request, res: Response) => {
   }
 
   const auth = JSON.parse(authCookie); // Parse the user data from the cookie
-  const message = "";
-  res.render("fund-transfer.ejs", { user: auth, message });
+  if (auth.status == false) {
+    const message = "Your account has been suspended, Kindly contact your account manager.";
+    res.render("suspended.ejs", { user: auth, message });
+  } else {
+    const message = "";
+    res.render("fund-transfer.ejs", { user: auth, message });
+  }
+
 });
 
 app.get("/history", requireLogin, async (req: Request, res: Response) => {
@@ -339,7 +345,7 @@ app.get("/add-history", requireLogin, async (req: Request, res: Response) => {
 
 app.post("/add-history", requireLogin, async (req, res) => {
   const authCookie = req.cookies.auth;
-  const { bankName, amount, accNumber, userId, status, type, day, month, year } = req.body;
+  const { bankName, amount, accNumber, recipientName, userId, status, type, day, month, year } = req.body;
   const dateString = `${day}-${month}-${year}`;
 
   try {
@@ -348,6 +354,7 @@ app.post("/add-history", requireLogin, async (req, res) => {
       bankName,
       amount,
       accNumber,
+      recipientName,
       status,
       userId,
       type,
