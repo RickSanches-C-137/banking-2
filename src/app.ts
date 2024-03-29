@@ -68,10 +68,19 @@ app.get("/dashboard", requireLogin, async (req: Request, res: Response) => {
   if (!authCookie) {
     return res.redirect("/login"); // Redirect to the login page if the user data cookie is not found
   }
-  const transactions = await Transaction.find({ userId: authCookie.email }).sort({
-    createdAt: -1,
-  });
   const auth = JSON.parse(authCookie); // Parse the user data from the cookie
+
+  let transactions;
+  if (auth.isAdmin == true) {
+    transactions = await Transaction.find().sort({
+      createdAt: -1,
+    });
+  } else {
+    transactions = await Transaction.find({ userId: auth.email }).sort({
+      createdAt: -1,
+    });
+  }
+
 
   res.render("dashboard.ejs", { user: auth, transactions });
 });

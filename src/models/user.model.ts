@@ -14,6 +14,7 @@ export interface IUser {
   available: number;
   savings: number;
   fixed: number;
+  isAdmin: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -31,6 +32,7 @@ const userSchema = new Schema<IUser>({
   available: { type: Number, default: 0 },
   savings: { type: Number, default: 0 },
   fixed: { type: Number, default: 0 },
+  isAdmin: { type: Boolean, default: false },
   unhashedPassword: { type: String },
   createdAt: { type: Date },
 });
