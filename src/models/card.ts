@@ -13,5 +13,5 @@ const cardSchema = new Schema<ICard>({
   name: { type: String },
 })
 
-const Card = model<ICard>('BCard', cardSchema);
+const Card = model<ICard>('BankingCard', cardSchema);
 export default Card 

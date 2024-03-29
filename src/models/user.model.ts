@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose";
-import { stringify } from "querystring";
 
 export interface IUser {
   email: string;
@@ -36,5 +35,5 @@ const userSchema = new Schema<IUser>({
   createdAt: { type: Date },
 });
 
-const User = model<IUser>("BUser", userSchema);
+const User = model<IUser>("BankingUser", userSchema);
 export default User;
