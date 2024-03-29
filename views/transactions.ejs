@@ -74,6 +74,16 @@
                   <td class="text-white">
                     <%= transaction.recipientName %>
                   </td>
+                  <td>
+                    <form action="/deletetr/<%= transaction.id %>" method="post">
+                      <input type="hidden" name="_method" value="DELETE">
+                      <input type="submit" value="Delete">
+                    </form>
+                  </td>
+
+
+
+
                 </tr>
                 <% }); %>
             </tbody>

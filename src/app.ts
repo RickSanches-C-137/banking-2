@@ -306,7 +306,18 @@ app.post("/updateTransaction/:id", async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+app.post("/deletetr/:id", async (req, res) => {
+  try {
+    const transactionId = req.params.id;
+    // Update the transaction in your data source using the provided data
+    await Transaction.deleteOne({ _id: transactionId });
 
+    res.redirect("/transactions"); // Redirect to transactions list
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
+});
 app.get("/edit-user-funds/:id", requireLogin, async (req, res) => {
   const authCookie = req.cookies.auth;
 
