@@ -68,7 +68,7 @@ app.get("/dashboard", requireLogin, async (req: Request, res: Response) => {
   if (!authCookie) {
     return res.redirect("/login"); // Redirect to the login page if the user data cookie is not found
   }
-  const transactions = await Transaction.find().sort({
+  const transactions = await Transaction.find({ userId: authCookie.email }).sort({
     createdAt: -1,
   });
   const auth = JSON.parse(authCookie); // Parse the user data from the cookie
