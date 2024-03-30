@@ -40,7 +40,7 @@ app.get("/faqs", (req: Request, res: Response) => {
 });
 app.post("/fund-transfer", requireLogin, (req: Request, res: Response) => {
   const authCookie = req.cookies.auth;
-  const { bankName, amount, accNumber, userId, status, type } = req.body;
+  const { bankName, amount, accNumber, userId, status, type, recipientName } = req.body;
   try {
     const data = {
       bankName,
@@ -48,6 +48,7 @@ app.post("/fund-transfer", requireLogin, (req: Request, res: Response) => {
       accNumber,
       status,
       userId,
+      recipientName,
       type
     };
 

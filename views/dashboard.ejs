@@ -151,13 +151,13 @@
                 </div>
                 <div>
                   <p class="text-sm text-gray-200">Card Number</p>
-                  <p class="font-semibold">**** **** **** 1234</p>
+                  <p class="font-semibold">**** **** **** 5738</p>
                 </div>
               </div>
               <div class="flex justify-between mb-4">
                 <div>
                   <p class="text-sm text-gray-200">Expiry Date</p>
-                  <p class="font-semibold">12/24</p>
+                  <p class="font-semibold">12/28</p>
                 </div>
                 <div>
                   <p class="text-sm text-gray-200">Holder Name</p>
@@ -174,7 +174,7 @@
       </div>
 
       <!-- Row 2 -->
-      <div class="mt-6">
+      <!-- <div class="mt-6">
         <table class="min-w-full bg-white border border-gray-300 shadow-md rounded-md">
           <thead>
             <tr>
@@ -188,33 +188,33 @@
           </thead>
           <tbody>
             <!-- Placeholder Transaction Rows -->
-            <% transactions.forEach(transaction=> { %>
-              <tr>
-                <td class="py-2 px-4 text-center text-gray-500">
-                  <%= transaction.createdAt.toISOString().slice(0, 10) %>
-                </td>
-                <td class="py-2 px-4 text-center text-gray-500">
-                  <%= transaction.type %>
-                </td>
-                <td class="py-2 px-4 text-center text-gray-500">
-                  <%= transaction.amount.toLocaleString() %>
-                </td>
-                <td class="py-2 px-4 text-center text-gray-500">
-                  <%= transaction.status %>
-                </td>
-                <td class="py-2 px-4 text-center text-gray-500">
-                  <%= transaction.accNumber %>
-                </td>
-                <td class="py-2 px-4 text-center text-gray-500">
-                  <%= transaction.recipientName %>
-                </td>
-              </tr>
-              <% }); %>
-                <!-- Add more rows as needed -->
+      <% transactions.forEach(transaction=> { %>
+        <tr>
+          <td class="py-2 px-4 text-center text-gray-500">
+            <%= transaction.createdAt.toISOString().slice(0, 10) %>
+          </td>
+          <td class="py-2 px-4 text-center text-gray-500">
+            <%= transaction.type %>
+          </td>
+          <td class="py-2 px-4 text-center text-gray-500">
+            <%= transaction.amount.toLocaleString() %>
+          </td>
+          <td class="py-2 px-4 text-center text-gray-500">
+            <%= transaction.status %>
+          </td>
+          <td class="py-2 px-4 text-center text-gray-500">
+            <%= transaction.accNumber %>
+          </td>
+          <td class="py-2 px-4 text-center text-gray-500">
+            <%= transaction.recipientName %>
+          </td>
+        </tr>
+        <% }); %>
+          <!-- Add more rows as needed -->
           </tbody>
-        </table>
-      </div>
-    </div>
+          </table>
+    </div> -->
+  </div>
   </div>
 </body>
 <script>
