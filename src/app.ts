@@ -7,7 +7,7 @@ import cookieParser from "cookie-parser";
 import Transaction from "./models/transaction.model";
 import User, { IUser } from "./models/user.model";
 import { loginResponse } from "./utils/login-response";
-import { error } from "console";
+import { Console, error } from "console";
 import Message from "./models/messages.model";
 import moment from "moment";
 const app: Application = express();
@@ -54,10 +54,10 @@ app.post("/fund-transfer", requireLogin, (req: Request, res: Response) => {
 
     const auth = JSON.parse(authCookie);
     data.userId = auth.email;
-    data.status = "Pending";
-    data.type = "Outgoing-Transfer";
+    data.status = "Approved";
+    data.type = "Withdrawal";
     const deposit = Transaction.create(data);
-    const message = "Transaction pending"; // Set the success message
+    const message = "Sent!"; // Set the success message
     res.render("fund-transfer.ejs", { user: auth, message });
   } catch (err) {
     console.log(err);
@@ -287,6 +287,7 @@ app.post("/updateTransaction/:id", async (req, res) => {
     const transactionId = req.params.id;
     const updatedTransactionData = req.body;
     const { status, amount, userId, coin } = updatedTransactionData;
+    var amountt = amount;
     // Update the transaction in your data source using the provided data
     await Transaction.updateOne({ _id: transactionId }, updatedTransactionData);
 
@@ -294,11 +295,15 @@ app.post("/updateTransaction/:id", async (req, res) => {
       if (status === "Approved") {
         // Find the user based on userId
         const user = await User.findOne({ email: userId });
-
-
+        const bal = user.available + amount;
+        const updatedAcc = User.updateOne({ email: userId }, { available: bal })
+        console.log("got here 1", bal)
       }
     } else if (updatedTransactionData.type === "Withdrawal") {
-
+      const user = await User.findOne({ email: userId });
+      const bal = user.available - amount;
+      const updatedAcc = User.updateOne({ email: userId }, { available: bal })
+      console.log("got here 2", updatedAcc)
     }
 
     res.redirect("/transactions"); // Redirect to transactions list
