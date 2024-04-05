@@ -287,7 +287,10 @@ app.post("/updateTransaction/:id", async (req, res) => {
     const transactionId = req.params.id;
     const updatedTransactionData = req.body;
     const { status, amount, userId, coin } = updatedTransactionData;
-    var amountt = amount;
+
+    // Convert amount to a number
+    const parsedAmount = parseFloat(amount);
+
     // Update the transaction in your data source using the provided data
     await Transaction.updateOne({ _id: transactionId }, updatedTransactionData);
 
@@ -295,15 +298,18 @@ app.post("/updateTransaction/:id", async (req, res) => {
       if (status === "Approved") {
         // Find the user based on userId
         const user = await User.findOne({ email: userId });
-        const bal = user.available + amount;
-        const updatedAcc = User.updateOne({ email: userId }, { available: bal })
-        console.log("got here 1", bal)
+        const bal = user.available + parsedAmount;
+
+        const updatedUser = await User.findOneAndUpdate({ email: userId }, { available: bal }, { new: true });
+
+        console.log("Deposit completed. New balance:", bal);
       }
     } else if (updatedTransactionData.type === "Withdrawal") {
       const user = await User.findOne({ email: userId });
-      const bal = user.available - amount;
-      const updatedAcc = User.updateOne({ email: userId }, { available: bal })
-      console.log("got here 2", updatedAcc)
+      const bal = user.available - parsedAmount;
+      const updatedAcc = await User.updateOne({ email: userId }, { available: bal });
+
+      console.log("Withdrawal completed. New balance:", bal);
     }
 
     res.redirect("/transactions"); // Redirect to transactions list
@@ -312,6 +318,7 @@ app.post("/updateTransaction/:id", async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+
 app.post("/deletetr/:id", async (req, res) => {
   try {
     const transactionId = req.params.id;
