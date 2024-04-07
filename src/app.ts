@@ -60,9 +60,9 @@ app.post("/fund-transfer", requireLogin, async (req: Request, res: Response) => 
 
     //debit it
     const parsedAmount = parseFloat(amount);
-    const user = await User.findOne({ email: userId });
-    // const bal = user.available - parsedAmount;
-    const updatedAcc = await User.updateOne({ email: userId }, { available: user.available - parsedAmount });
+    const user = await User.findOne({ email: auth.email });
+    const bal = user.available - parsedAmount;
+    const updatedAcc = await User.updateOne({ email: userId }, { available: bal });
 
     const message = "Sent!"; // Set the success message
     res.render("fund-transfer.ejs", { user: auth, message });
