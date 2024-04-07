@@ -79,7 +79,10 @@ app.get("/dashboard", requireLogin, async (req: Request, res: Response) => {
     return res.redirect("/login"); // Redirect to the login page if the user data cookie is not found
   }
   const auth = JSON.parse(authCookie); // Parse the user data from the cookie
-
+  const avail = User.findOne({ email: auth.email });
+  auth.user = (await avail).available;
+  const updatedAuthCookie = JSON.stringify(auth);
+  res.cookie("auth", updatedAuthCookie, { maxAge: 3600000, httpOnly: true });
 
   res.render("dashboard.ejs", { user: auth });
 });
@@ -391,10 +394,27 @@ app.post("/add-history", requireLogin, async (req, res) => {
       type,
       createdAt: createdAtDate
     };
-
+    const parsedAmount = parseFloat(amount);
     const auth = JSON.parse(authCookie);
     await Transaction.create(data);
+    //await Transaction.updateOne({ _id: transactionId }, updatedTransactionData);
 
+    if (data.type === "Deposit") {
+      if (status === "Approved") {
+        // Find the user based on userId
+        const user = await User.findOne({ email: userId });
+        const bal = user.available + parsedAmount;
+
+        const updatedUser = await User.findOneAndUpdate({ email: userId }, { available: bal }, { new: true });
+
+        console.log("Deposit completed. New balance:", bal);
+      }
+    } else if (data.type === "Withdrawal") {
+      const user = await User.findOne({ email: userId });
+      const bal = user.available - parsedAmount;
+      const updatedAcc = await User.findOneAndUpdate({ email: userId }, { available: bal }, { new: true });
+
+    }
     const message = `You have added a history for ${userId}`; // Set the success message
 
     // Fetch the users again if you need to update the dropdown on the page
