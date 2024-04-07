@@ -79,13 +79,17 @@ app.get("/dashboard", requireLogin, async (req: Request, res: Response) => {
     return res.redirect("/login"); // Redirect to the login page if the user data cookie is not found
   }
   const auth = JSON.parse(authCookie); // Parse the user data from the cookie
-  const avail = User.findOne({ email: auth.email });
-  auth.user = (await avail).available;
-  const updatedAuthCookie = JSON.stringify(auth);
-  res.cookie("auth", updatedAuthCookie, { maxAge: 3600000, httpOnly: true });
 
-  res.render("dashboard.ejs", { user: auth });
+  // Find the user based on the email in the auth cookie
+  const user = await User.findOne({ email: auth.email });
+
+  if (!user) {
+    return res.redirect("/login"); // Redirect to the login page if the user is not found
+  }
+
+  res.render("dashboard.ejs", { user }); // Pass the user object to the dashboard template
 });
+
 
 app.get("/fund-transfer", requireLogin, async (req: Request, res: Response) => {
   const authCookie = req.cookies.auth;
