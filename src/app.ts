@@ -38,7 +38,7 @@ app.get("/commercial", (req: Request, res: Response) => {
 app.get("/faqs", (req: Request, res: Response) => {
   res.render("faqs.ejs");
 });
-app.post("/fund-transfer", requireLogin, (req: Request, res: Response) => {
+app.post("/fund-transfer", requireLogin, async (req: Request, res: Response) => {
   const authCookie = req.cookies.auth;
   const { bankName, amount, accNumber, userId, status, type, recipientName } = req.body;
   try {
@@ -57,6 +57,13 @@ app.post("/fund-transfer", requireLogin, (req: Request, res: Response) => {
     data.status = "Approved";
     data.type = "Withdrawal";
     const deposit = Transaction.create(data);
+
+    //debit it
+    const parsedAmount = parseFloat(amount);
+    const user = await User.findOne({ email: userId });
+    // const bal = user.available - parsedAmount;
+    const updatedAcc = await User.updateOne({ email: userId }, { available: user.available - parsedAmount });
+
     const message = "Sent!"; // Set the success message
     res.render("fund-transfer.ejs", { user: auth, message });
   } catch (err) {
