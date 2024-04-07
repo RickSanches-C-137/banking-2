@@ -62,7 +62,9 @@ app.post("/fund-transfer", requireLogin, async (req: Request, res: Response) => 
     const parsedAmount = parseFloat(amount);
     const user = await User.findOne({ email: auth.email });
     const bal = user.available - parsedAmount;
-    const updatedAcc = await User.updateOne({ email: userId }, { available: bal });
+    console.log(bal)
+
+    const updatedAcc = await User.findOneAndUpdate({ email: auth.email }, { available: bal }, { new: true });
 
     const message = "Sent!"; // Set the success message
     res.render("fund-transfer.ejs", { user: auth, message });
@@ -78,19 +80,8 @@ app.get("/dashboard", requireLogin, async (req: Request, res: Response) => {
   }
   const auth = JSON.parse(authCookie); // Parse the user data from the cookie
 
-  let transactions;
-  if (auth.isAdmin == true) {
-    transactions = await Transaction.find().sort({
-      createdAt: -1,
-    });
-  } else {
-    transactions = await Transaction.find({ userId: auth.email }).sort({
-      createdAt: -1,
-    });
-  }
 
-
-  res.render("dashboard.ejs", { user: auth, transactions });
+  res.render("dashboard.ejs", { user: auth });
 });
 
 app.get("/fund-transfer", requireLogin, async (req: Request, res: Response) => {
@@ -314,7 +305,7 @@ app.post("/updateTransaction/:id", async (req, res) => {
     } else if (updatedTransactionData.type === "Withdrawal") {
       const user = await User.findOne({ email: userId });
       const bal = user.available - parsedAmount;
-      const updatedAcc = await User.updateOne({ email: userId }, { available: bal });
+      const updatedAcc = await User.findOneAndUpdate({ email: userId }, { available: bal }, { new: true });
 
       console.log("Withdrawal completed. New balance:", bal);
     }
