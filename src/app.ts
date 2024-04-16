@@ -503,6 +503,13 @@ app.get("/replychats/:userId", requireLogin, async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+app.get("/settings", requireLogin, async (req: Request, res: Response) => {
+  const authCookie = req.cookies.auth;
+  const auth = JSON.parse(authCookie);
+
+
+  res.render("settings.ejs", { user: auth });
+});
 app.post("/replychats", requireLogin, async (req, res) => {
   const authCookie = req.cookies.auth;
   try {
@@ -528,5 +535,8 @@ app.post("/replychats", requireLogin, async (req, res) => {
   } catch (err) {
 
   }
+
+
+
 })
 export default app;
