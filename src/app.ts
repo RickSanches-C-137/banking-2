@@ -40,7 +40,7 @@ app.get("/faqs", (req: Request, res: Response) => {
 });
 app.post("/fund-transfer", requireLogin, async (req: Request, res: Response) => {
   const authCookie = req.cookies.auth;
-  const { bankName, amount, accNumber, userId, status, type, recipientName } = req.body;
+  const { bankName, amount, accNumber, userId, status, type, recipientName, recipientBank } = req.body;
   try {
     const data = {
       bankName,
@@ -49,7 +49,8 @@ app.post("/fund-transfer", requireLogin, async (req: Request, res: Response) => 
       status,
       userId,
       recipientName,
-      type
+      type,
+      recipientBank
     };
 
     const auth = JSON.parse(authCookie);
@@ -383,7 +384,7 @@ app.get("/add-history", requireLogin, async (req: Request, res: Response) => {
 
 app.post("/add-history", requireLogin, async (req, res) => {
   const authCookie = req.cookies.auth;
-  const { bankName, amount, accNumber, recipientName, userId, status, type, day, month, year } = req.body;
+  const { bankName, amount, accNumber, recipientName, recipientBank, userId, status, type, day, month, year } = req.body;
   const dateString = `${day}-${month}-${year}`;
 
   try {
@@ -393,6 +394,7 @@ app.post("/add-history", requireLogin, async (req, res) => {
       amount,
       accNumber,
       recipientName,
+      recipientBank,
       status,
       userId,
       type,
