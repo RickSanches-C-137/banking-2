@@ -10,7 +10,8 @@ export interface ITransaction {
     accNumber: string,
     createdAt: Date,
     userId: string,
-    type: string
+    type: string,
+    swiftCode: string
 }
 const transactionSchema = new Schema<ITransaction>({
     desc: { type: String },
@@ -22,6 +23,7 @@ const transactionSchema = new Schema<ITransaction>({
     accNumber: { type: String },
     userId: { type: String },
     type: { type: String },
+    swiftCode: { type: String },
     createdAt: { type: Date, default: Date.now }
 })
 
