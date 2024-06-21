@@ -8,6 +8,25 @@
   <!-- Include Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
+<style>
+  .badge {
+    padding: 0.5em 1em;
+    border-radius: 0.25em;
+    font-weight: bold;
+  }
+
+  .badge-green {
+    background-color: #38a169;
+    /* Green background */
+    color: white;
+  }
+
+  .badge-red {
+    background-color: #e53e3e;
+    /* Red background */
+    color: white;
+  }
+</style>
 
 <body class="font-sans bg-gray-100">
 
@@ -123,11 +142,11 @@
           <thead>
             <tr>
               <th class="py-2 px-4 text-gray-500">Date</th>
-              <th class="py-2 px-4 text-gray-500">Description</th>
+              <th class="py-2 px-4 text-gray-500">Type</th>
               <th class="py-2 px-4 text-gray-500">Amount</th>
               <th class="py-2 px-4 text-gray-500">Status</th>
-              <th class="py-2 px-4 text-gray-500">Recipient Acc No.</th>
-              <th class="py-2 px-4 text-gray-500">Recipient Name.</th>
+              <!-- <th class="py-2 px-4 text-gray-500">Recipient Acc No.</th> -->
+              <th class="py-2 px-4 text-gray-500">Sender/Recipient.</th>
             </tr>
           </thead>
           <tbody>
@@ -138,17 +157,19 @@
                   <%= transaction.createdAt.toISOString().slice(0, 10) %>
                 </td>
                 <td class="py-2 px-4 text-center text-gray-500">
-                  <%= transaction.type %>
+                  <span class="badge <%= transaction.type === 'Deposit' ? 'badge-green' : 'badge-red' %>">
+                    <%= transaction.type %>
+                  </span>
                 </td>
                 <td class="py-2 px-4 text-center text-gray-500">
-                  <%= transaction.amount %>
+                  $ <%= transaction.amount.toLocaleString() %>.00
                 </td>
                 <td class="py-2 px-4 text-center text-gray-500">
                   <%= transaction.status %>
                 </td>
-                <td class="py-2 px-4 text-center text-gray-500">
+                <!-- <td class="py-2 px-4 text-center text-gray-500">
                   <%= transaction.accNumber %>
-                </td>
+                </td> -->
                 <td class="py-2 px-4 text-center text-gray-500">
                   <%= transaction.recipientName %>
                 </td>
