@@ -25,51 +25,7 @@
   <div class="min-h-screen flex flex-col md:flex-row">
 
     <!-- Navigation Pane -->
-    <!-- Hamburger Menu Icon -->
-    <div class="block md:hidden fixed top-4 right-4 z-50">
-      <button id="menu-toggle" class="text-gray-500 focus:outline-none">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-        </svg>
-      </button>
-    </div>
-
-    <!-- Navigation Pane -->
-    <div id="menu"
-      class="hidden md:block w-full md:w-1/4 bg-green-600 text-white p-4 md:fixed md:top-0 md:left-0 md:h-full md:overflow-y-auto">
-      <!-- Your existing navigation items -->
-      <a href="/">
-        <h2 class="text-xl font-semibold mb-4">First Key Finance</h2>
-      </a>
-      <a href="/dashboard" class="nav-link">
-        Dashboard
-      </a>
-      <a href="/fund-transfer" class="nav-link">
-        Transfer Funds
-      </a>
-      <a href="/history" class="nav-link">
-        History
-      </a>
-      <a href="/support" class="nav-link">
-        Chat Support
-      </a>
-      <a href="/settings" class="nav-link">
-        Settings
-      </a>
-      <% if (user.email=="admin@firstkeyfinance.org" ) { %>
-        <a href="/transactions" class="nav-link">
-          Admin Transactions
-        </a>
-        <a href="/chats" class="nav-link">
-          Admin Chat Support
-        </a>
-        <% } %>
-          <button class="nav-link" onclick="logout()">
-            Logout
-          </button>
-    </div>
-
-    <!-- <div class="w-full md:w-1/4 bg-green-600 text-white p-4">
+    <div class="w-full md:w-1/4 bg-green-600 text-white p-4">
       <a href="/">
         <h2 class="text-xl font-semibold mb-4">First Key Finance</h2>
       </a>
@@ -161,7 +117,7 @@
 
             Logout
           </button>
-    </div> -->
+    </div>
 
 
     <!-- Main Content Section -->
