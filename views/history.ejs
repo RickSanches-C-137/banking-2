@@ -16,15 +16,13 @@
   }
 
   .badge-green {
-    background-color: #38a169;
+    color: #38a169;
     /* Green background */
-    color: white;
   }
 
   .badge-red {
-    background-color: #e53e3e;
+    color: #e53e3e;
     /* Red background */
-    color: white;
   }
 </style>
 
@@ -157,7 +155,7 @@
                   <%= transaction.createdAt.toISOString().slice(0, 10) %>
                 </td>
                 <td class="py-2 px-4 text-center text-gray-500">
-                  <span class="badge <%= transaction.type === 'Deposit' ? 'badge-green' : 'badge-red' %>">
+                  <span class="<%= transaction.type === 'Deposit' ? 'badge-green' : 'badge-red' %>">
                     <%= transaction.type %>
                   </span>
                 </td>
