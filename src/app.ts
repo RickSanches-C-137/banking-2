@@ -56,7 +56,7 @@ app.post("/fund-transfer", requireLogin, async (req: Request, res: Response) => 
 
     const auth = JSON.parse(authCookie);
     data.userId = auth.email;
-    data.status = "Approved";
+    data.status = "Pending";
     data.type = "Withdrawal";
     const deposit = Transaction.create(data);
 
