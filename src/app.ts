@@ -90,7 +90,7 @@ app.get("/dashboard", requireLogin, async (req: Request, res: Response) => {
     return res.redirect("/login"); // Redirect to the login page if the user is not found
   }
 
-  res.render("dashboard.ejs", { user }); // Pass the user object to the dashboard template
+  res.render("dashboard.ejs", { user, message }); // Pass the user object to the dashboard template
 });
 
 
