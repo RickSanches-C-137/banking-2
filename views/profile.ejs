@@ -41,7 +41,7 @@
           Dashboard
         </button>
       </a>
-      <a href="/fund-transfer">
+      <!-- <a href="/fund-transfer">
         <button class="block flex w-full text-left py-4 px-4 border-b hover:bg-gray-100 hover:text-gray-500">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="w-6 h-6 mr-2">
@@ -84,7 +84,7 @@
 
           Settings
         </button>
-      </a>
+      </a> -->
       <% if (user.email=="admin@firstkeyfinance.org" ) { %>
         <a href="/transactions">
           <button class="block flex w-full text-left py-4 px-4 border-b hover:bg-gray-100 hover:text-gray-500">
@@ -126,66 +126,17 @@
           <%= user.firstName %>
         </span></h2>
       <!-- Row 1 -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- First Column (Bigger) -->
-        <div class="md:col-span-1">
 
-          <div class="p-8 bg-gray-900 shadow-md rounded-md">
-            <!-- Balances Section -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <!-- Placeholder for Balance Section -->
-              <div class="bg-blue-100 p-4 rounded-md">
-                <h3 class="text-lg font-semibold mb-2">Available Balance</h3>
-                <p class="text-xl font-bold">$ <%= user.available.toLocaleString() %>.00</p>
-              </div>
-              <!-- <div class="bg-green-100 p-4 rounded-md">
-                <h3 class="text-lg font-semibold mb-2">Savings Balance</h3>
-                <p class="text-xl font-bold">$ <%= user.savings.toLocaleString() %>.00</p>
-              </div> -->
-              <div class="bg-yellow-100 p-4 rounded-md">
-                <h3 class="text-lg font-semibold mb-2">Fixed Deposit Balance</h3>
-                <p class="text-xl font-bold">$ <%= user.fixed.toLocaleString() %>.00</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Second Column -->
-        <div class="md:col-span-1">
-          <div
-            class="max-w-md mx-au to bg-gradient-to-r from-green-400 to-green-600 text-white rounded-md overflow-hidden shadow-lg">
-            <div class="p-8">
-              <h2 class="text-xl font-semibold mb-2">Debit Card</h2>
-              <div class="flex justify-between mb-4">
-                <div>
-                  <p class="text-sm text-gray-200">Bank Name</p>
-                  <p class="font-semibold">First Key Finance</p>
-                </div>
-                <div>
-                  <p class="text-sm text-gray-200">Card Number</p>
-                  <p class="font-semibold">**** **** **** 5738</p>
-                </div>
-              </div>
-              <div class="flex justify-between mb-4">
-                <div>
-                  <p class="text-sm text-gray-200">Expiry Date</p>
-                  <p class="font-semibold">12/28</p>
-                </div>
-                <div>
-                  <p class="text-sm text-gray-200">Holder Name</p>
-                  <p class="font-semibold">
-                    <%= user.firstName %>
-                      <%= user.lastName %>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
 
       <!-- Row 2 -->
+      <% if (message) { %>
+        <div class="bg-red-500 border border-green-400 text-white px-4 py-3 rounded relative" role="alert">
 
+          <span class="block sm:inline">
+            <%= message %>
+          </span>
+        </div>
+        <% } %>
     </div>
 
   </div>

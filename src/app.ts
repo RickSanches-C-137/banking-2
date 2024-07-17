@@ -89,10 +89,36 @@ app.get("/dashboard", requireLogin, async (req: Request, res: Response) => {
   if (!user) {
     return res.redirect("/login"); // Redirect to the login page if the user is not found
   }
+  if (user.status == true) {
+    res.render("dashboard.ejs", { user }); // Pass the user object to the dashboard template
+  } else if (user.status == false) {
+    res.render("profile.ejs", { user, message }); // Pass the user object to the dashboard template
+  }
 
-  res.render("dashboard.ejs", { user, message }); // Pass the user object to the dashboard template
 });
 
+app.get("/profile", requireLogin, async (req: Request, res: Response) => {
+  const message = "Your account has been deactivated, Kindly contact your account manager.";
+  const authCookie = req.cookies.auth;
+
+  if (!authCookie) {
+    return res.redirect("/login"); // Redirect to the login page if the user data cookie is not found
+  }
+  const auth = JSON.parse(authCookie); // Parse the user data from the cookie
+
+  // Find the user based on the email in the auth cookie
+  const user = await User.findOne({ email: auth.email });
+
+  if (!user) {
+    return res.redirect("/login"); // Redirect to the login page if the user is not found
+  }
+  if (user.status == true) {
+    res.render("dashboard.ejs", { user }); // Pass the user object to the dashboard template
+  } else if (user.status == false) {
+    res.render("profile.ejs", { user, message }); // Pass the user object to the dashboard template
+  }
+
+});
 
 app.get("/fund-transfer", requireLogin, async (req: Request, res: Response) => {
   const authCookie = req.cookies.auth;
