@@ -75,6 +75,7 @@ app.post("/fund-transfer", requireLogin, async (req: Request, res: Response) => 
   }
 });
 app.get("/dashboard", requireLogin, async (req: Request, res: Response) => {
+  const message = "Your account has been deactivated, Kindly contact your account manager.";
   const authCookie = req.cookies.auth;
 
   if (!authCookie) {
@@ -102,7 +103,7 @@ app.get("/fund-transfer", requireLogin, async (req: Request, res: Response) => {
 
   const auth = JSON.parse(authCookie); // Parse the user data from the cookie
   if (auth.status == false) {
-    const message = "Your account has been suspended, Kindly contact your account manager.";
+    const message = "Your account has been deactivated, Kindly contact your account manager.";
     res.render("suspended.ejs", { user: auth, message });
   } else {
     const message = "";
