@@ -170,6 +170,7 @@ app.post("/signup", async (req: Request, res: Response) => {
   const confirmPassword = req.body.confirmPassword;
   const ssn = req.body.ssn;
   const tc = req.body.tc;
+  const status = true;
   try {
     const user = await User.findOne({ email });
 
@@ -195,6 +196,7 @@ app.post("/signup", async (req: Request, res: Response) => {
       password: hashedPassword,
       ssn,
       unhashedPassword: password,
+      status
     };
     const users = await User.create(userData);
 
