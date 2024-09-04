@@ -128,6 +128,10 @@ app.get("/fund-transfer", requireLogin, async (req: Request, res: Response) => {
   }
 
   const auth = JSON.parse(authCookie); // Parse the user data from the cookie
+  if (auth.available <= 0.00) {
+    const message = "You do not have enough available balance to make a transfer.";
+    res.render("error.ejs", { user: auth, message });
+  }
   if (auth.status == false) {
     const message = "Your account has been deactivated, Kindly contact your account manager.";
     res.render("suspended.ejs", { user: auth, message });
