@@ -66,7 +66,7 @@
                     <%= transaction.status %>
                   </td>
                   <td class="text-white">
-                    <%= transaction.amount.toLocaleString() %>
+                    <%= transaction.amount %>
                   </td>
                   <td class="text-white">
                     <%= transaction.createdAt.toISOString().slice(0, 10) %>
@@ -80,9 +80,6 @@
                       <input type="submit" value="Delete">
                     </form>
                   </td>
-
-
-
 
                 </tr>
                 <% }); %>

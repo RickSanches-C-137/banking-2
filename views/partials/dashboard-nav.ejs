@@ -1,0 +1,47 @@
+<!-- Navigation Bar -->
+<nav class="fixed top-0 left-0 w-full bg-green-600 text-black py-4 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+        <!-- Logo and Hamburger Wrapper -->
+        <div class="flex items-center space-x-4">
+            <!-- Hamburger Menu -->
+            <button id="menu-btn" class="text-black focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7">
+                    </path>
+                </svg>
+            </button>
+            <!-- Logo -->
+            <a href="/" class="text-lg font-bold">TradeSphere</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Sidebar -->
+<div id="sidebar"
+    class="md:mt-16 fixed lg:relative top-0 left-0 h-screen w-64 bg-green-600 text-white transform lg:transform-none z-40">
+    <div class="flex justify-end p-4 lg:hidden">
+        <button id="close-btn" class="text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+    <ul class="mt-8 space-y-1 px-4">
+        <li><a href="/" class="text-gray-800 text-lg block py-2 px-4 hover:bg-gray-200 rounded">Home</a></li>
+        <li><a href="faqs" class="text-gray-800 text-lg block py-2 px-4 hover:bg-gray-200 rounded">FAQs</a></li>
+        <li><a href="about-us" class="text-gray-800 text-lg block py-2 px-4 hover:bg-gray-200 rounded">About us</a></li>
+    </ul>
+</div>
+
+<script>
+    // JavaScript to handle the sidebar toggle
+    document.getElementById('menu-btn').addEventListener('click', function () {
+        document.body.classList.toggle('sidebar-open');
+    });
+
+    document.getElementById('close-btn').addEventListener('click', function () {
+        document.body.classList.remove('sidebar-open');
+    });
+</script>
