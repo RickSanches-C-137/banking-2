@@ -1,0 +1,145 @@
+<div class="p-4 bg-white shadow-md rounded-md w-full md:w-3/4">
+    <% if (message) { %>
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+
+            <span class="block sm:inline">
+                <%= message %>
+            </span>
+        </div>
+        <% } %>
+            <div class="flex flex-col md:flex-row items-center justify-center">
+
+                <!-- Form Section -->
+                <div class="w-full md:w-1/2 p-4 mb-4 md:mb-0">
+                    <div class="bg-white p-8 rounded-md shadow-md">
+                        <h2 class="text-2xl font-semibold mb-4">Funds Transfer</h2>
+                        <p class="text-red-500">* Confirm Beneficiary details before proceeding</p>
+
+                        <!-- Radio Buttons -->
+                        <div class="mb-4">
+                            <input type="radio" id="domestic" name="transferType" value="domestic" checked>
+                            <label for="domestic" class="text-sm font-medium text-gray-700">Domestic</label>
+
+                            <input type="radio" id="international" name="transferType" value="international">
+                            <label for="international" class="text-sm font-medium text-gray-700">International</label>
+                        </div>
+
+                        <!-- Domestic Transfer Form -->
+
+                        <!-- Add your domestic form fields here -->
+                        <form action="/fund-transfer" id="domesticForm" class="max-w-md mx-auto" method="post"
+                            action="">
+
+                            <div class="mb-4">
+                                <label for="desc" class="block text-gray-600 text-sm font-semibold mb-2">Routing
+                                    Number</label>
+                                <input type="text" id="desc" name="desc"
+                                    class="w-full p-2 border-b border-gray-300 rounded">
+                            </div>
+                            <div class="mb-4">
+                                <label for="accNumber" class="block text-gray-600 text-sm font-semibold mb-2">Recipient
+                                    account
+                                    number</label>
+                                <input type="text" id="accNumber" name="accNumber"
+                                    class="w-full p-2 border-b border-gray-300 rounded">
+                            </div>
+                            <div class="mb-4">
+                                <label for="" class="block text-gray-600 text-sm font-semibold mb-2">Verify recipient
+                                    account
+                                    number</label>
+                                <input type="text" id="" name="" class="w-full p-2 border-b border-gray-300 rounded">
+                            </div>
+                            <div class="mb-4">
+                                <label for="recipientName"
+                                    class="block text-gray-600 text-sm font-semibold mb-2">Recipient
+                                    Name</label>
+                                <input type="text" id="recipientName" name="recipientName"
+                                    class="w-full p-2 border-b border-gray-300 rounded">
+                            </div>
+                            <div class="mb-4">
+                                <label for="recipientBank" class="block text-gray-600 text-sm font-semibold mb-2">Name
+                                    of
+                                    Beneficiary Bank</label>
+                                <input type="text" id="recipientBank" name="recipientBank"
+                                    class="w-full p-2 border-b border-gray-300 rounded">
+                            </div>
+                            <!-- <div class="mb-4">
+            <label for="status" class="block text-gray-600 text-sm font-semibold mb-2">Status</label>
+            <input type="text" id="status" name="status" class="w-full p-2 border border-gray-300 rounded">
+          </div> -->
+
+                            <div class="mb-4">
+                                <label for="amount"
+                                    class="block text-gray-600 text-sm font-semibold mb-2">Amount</label>
+                                <div class="relative">
+                                    <span
+                                        class="absolute inset-y-0 left-0 flex items-center pl-2 text-gray-600">$</span>
+                                    <input type="number" id="amount" name="amount" placeholder="0.00"
+                                        class="pl-8 w-full p-2 border-b border-gray-300 rounded">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="bg-green-500 text-white px-4 py-2">Send</button>
+                        </form>
+
+                        <!-- International Transfer Form -->
+                        <form id="internationalForm" class="max-w-md mx-auto" method="post" action=""
+                            style="display: none;">
+                            <div class="mb-4">
+                                <label for="desc" class="block text-gray-600 text-sm font-semibold mb-2">Routing
+                                    Number</label>
+                                <input type="text" id="desc" name="desc"
+                                    class="w-full p-2 border-b border-gray-300 rounded">
+                            </div>
+                            <div class="mb-4">
+                                <label for="accNumber" class="block text-gray-600 text-sm font-semibold mb-2">Recipient
+                                    account
+                                    number</label>
+                                <input type="text" id="accNumber" name="accNumber"
+                                    class="w-full p-2 border-b border-gray-300 rounded">
+                            </div>
+                            <div class="mb-4">
+                                <label for="" class="block text-gray-600 text-sm font-semibold mb-2">Verify recipient
+                                    account
+                                    number</label>
+                                <input type="text" id="" name="" class="w-full p-2 border-b border-gray-300 rounded">
+                            </div>
+                            <div class="mb-4">
+                                <label for="recipientName"
+                                    class="block text-gray-600 text-sm font-semibold mb-2">Recipient
+                                    Name</label>
+                                <input type="text" id="recipientName" name="recipientName"
+                                    class="w-full p-2 border-b border-gray-300 rounded">
+                            </div>
+                            <div class="mb-4">
+                                <label for="recipientBank" class="block text-gray-600 text-sm font-semibold mb-2">Name
+                                    of
+                                    Beneficiary Bank</label>
+                                <input type="text" id="recipientBank" name="recipientBank"
+                                    class="w-full p-2 border-b border-gray-300 rounded">
+                            </div>
+                            <div class="mb-4">
+                                <label for="swiftCode" class="block text-gray-600 text-sm font-semibold mb-2">Swift
+                                    Code</label>
+                                <input type="text" id="swiftCode" name="swiftCode"
+                                    class="w-full p-2 border border-gray-300 rounded">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="amount"
+                                    class="block text-gray-600 text-sm font-semibold mb-2">Amount</label>
+                                <div class="relative">
+                                    <span
+                                        class="absolute inset-y-0 left-0 flex items-center pl-2 text-gray-600">$</span>
+                                    <input type="number" id="amount" name="amount" placeholder="0.00"
+                                        class="pl-8 w-full p-2 border-b border-gray-300 rounded">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="bg-green-500 text-white px-4 py-2">Send</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+</div>

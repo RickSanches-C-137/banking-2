@@ -4,165 +4,89 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fund-Transfer - First Key Finance</title>
+  <title>Dashboard - First Key Finance</title>
   <!-- Include Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-
 </head>
+<style>
+  #menu {
+    display: none;
+  }
 
-<body class="font-sans bg-gray-100">
+  @media (min-width: 768px) {
+    #menu {
+      display: block;
+    }
+  }
+</style>
+
+<body class="font-sans">
 
   <div class="min-h-screen flex flex-col md:flex-row">
 
     <!-- Navigation Pane -->
-    <div class="w-full md:w-1/4 bg-green-600 text-white p-4">
-      <h2 class="text-xl font-semibold mb-4">First Key Finance</h2>
-      <a href="/dashboard">
-        <button class="block w-full flex text-left py-4 px-4 border-b hover:bg-gray-100 hover:text-gray-500">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6 mr-2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
-          </svg>
+    <%- include('partials/dashboard-nav') %>
+      <!-- Main Content Section -->
+      <div class="p-4 bg-white mt-16 shadow-md rounded-md w-full">
+        <div class=" items-center justify-center">
 
-          Dashboard
-        </button>
-      </a>
-      <a href="/fund-transfer">
-        <button class="block flex  w-full text-left py-4 px-4 border-b hover:bg-gray-100 hover:text-gray-500">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6 mr-2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
-          </svg>
+          <!-- Form Section -->
+          <div class="bg-white rounded-lg shadow-lg p-4 mt-4 md:mr-4">
+            <ul id=" message-list">
+              <!-- Messages will be added here dynamically -->
+              <% messages.forEach(function(message) { %>
+                <li class="mb-2" style="list-style: none;">
+                  <div
+                    class="<%= message.type === 'user' ? 'flex items-center justify-end' : 'flex items-center justify-start' %>">
+                    <div class="bg-green-400 w-8 h-8 rounded-full flex items-center justify-center text-white mr-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                          d="M10 0a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1.293-4.293a1 1 0 0 1 1.414-1.414l2.998 2.998 4.997-4.996a1 1 0 1 1 1.414 1.414l-5.7 5.7a1 1 0 0 1-1.418.008l-3.292-3.292a1 1 0 0 1-.002-1.414z" />
+                      </svg>
+                    </div>
+                    <div
+                      class="<%= message.type === 'user' ? 'bg-gray-200' : 'bg-blue-200' %> p-2 rounded-lg text-right">
+                      <p class="text-gray-800">
+                        <%= message.text %>
+                      </p>
+                      <p class="text-gray-500 text-xs">
+                        <%= new Date(message.createdAt).toLocaleString(undefined, { hour: '2-digit' , minute: '2-digit'
+                          }) %>
+                      </p>
+                    </div>
+                  </div>
+                </li>
+                <% }); %>
+            </ul>
+          </div>
 
-          Transfer Funds
-        </button>
-      </a>
-      <a href="/history">
-        <button class="block flex w-full text-left py-4 px-4 border-b hover:bg-gray-100 hover:text-gray-500">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6 mr-2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
-          </svg>
+          <!-- Chat Input -->
+          <div class="bg-white rounded-lg shadow-lg p-4 mt-4">
+            <form action="/support" method="post" class="flex">
+              <input type="text" id="text" name="text"
+                class="flex-grow border rounded-l-lg p-2 focus:outline-none focus:ring focus:border-blue-300"
+                placeholder="Type a message...">
+              <button id="send-button"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg">Send</button>
+            </form>
+          </div>
 
-          History
-        </button>
-      </a>
-      <a href="/support">
-        <button
-          class="block w-full bg-green-500 flex text-left py-4 px-4 border-b hover:bg-gray-100 hover:text-gray-500">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6 mr-2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
-          </svg>
-          Chat Support
-        </button>
-      </a>
-      <a href="/settings">
-        <button class="block flex w-full text-left py-4 px-4 border-b hover:bg-gray-100 hover:text-gray-500">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6 mr-2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-          </svg>
-
-          Settings
-        </button>
-      </a>
-      <% if (user.email=="admin@firstkeyfinance.org" || user.email=="esanni5@gmail.com" ) { %>
-        <a href="/transactions">
-          <button class="block flex w-full text-left py-4 px-4 border-b hover:bg-gray-100 hover:text-gray-500">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-6 h-6 mr-2">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M6 13.5V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 0 1 0 3m0-3a1.5 1.5 0 0 0 0 3m0 9.75V10.5" />
-            </svg>
-
-            Admin Transactions
-          </button>
-        </a>
-        <a href="/chats">
-          <button class="block flex w-full text-left py-4 px-4 border-b hover:bg-gray-100 hover:text-gray-500">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-6 h-6 mr-2">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
-            </svg>
-            Admin Chat support
-          </button>
-        </a>
-        <% } %>
-          <button class="block flex w-full text-left py-4 px-4 border-b hover:bg-gray-100 hover:text-gray-500"
-            onclick="logout()">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-              stroke="currentColor" class="w-6 h-6 mr-2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-            </svg>
-
-            Logout
-          </button>
-    </div>
-
-
-    <!-- Main Content Section -->
-    <div class="p-4 bg-white shadow-md rounded-md w-full">
-      <div class=" items-center justify-center">
-
-        <!-- Form Section -->
-        <div class="bg-white rounded-lg shadow-lg p-4 mt-4 md:mr-4>
-          <ul id=" message-list">
-          <!-- Messages will be added here dynamically -->
-          <% messages.forEach(function(message) { %>
-            <li class="mb-2" style="list-style: none;">
-              <div
-                class="<%= message.type === 'user' ? 'flex items-center justify-end' : 'flex items-center justify-start' %>">
-                <div class="bg-green-400 w-8 h-8 rounded-full flex items-center justify-center text-white mr-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd"
-                      d="M10 0a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16zm-1.293-4.293a1 1 0 0 1 1.414-1.414l2.998 2.998 4.997-4.996a1 1 0 1 1 1.414 1.414l-5.7 5.7a1 1 0 0 1-1.418.008l-3.292-3.292a1 1 0 0 1-.002-1.414z" />
-                  </svg>
-                </div>
-                <div class="<%= message.type === 'user' ? 'bg-gray-200' : 'bg-blue-200' %> p-2 rounded-lg text-right">
-                  <p class="text-gray-800">
-                    <%= message.text %>
-                  </p>
-                  <p class="text-gray-500 text-xs">
-                    <%= new Date(message.createdAt).toLocaleString(undefined, { hour: '2-digit' , minute: '2-digit' })
-                      %>
-                  </p>
-                </div>
-              </div>
-            </li>
-            <% }); %>
-              </ul>
         </div>
-
-        <!-- Chat Input -->
-        <div class="bg-white rounded-lg shadow-lg p-4 mt-4">
-          <form action="/support" method="post" class="flex">
-            <input type="text" id="text" name="text"
-              class="flex-grow border rounded-l-lg p-2 focus:outline-none focus:ring focus:border-blue-300"
-              placeholder="Type a message...">
-            <button id="send-button"
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-r-lg">Send</button>
-          </form>
-        </div>
-
       </div>
-    </div>
+
 
   </div>
-
-  <script>
-    function logout() {
-      window.location.href = "/logout"; // Redirect to the logout route when clicked
-    }
-  </script>
-
 </body>
+<script>
+  function logout() {
+    window.location.href = "/logout"; // Redirect to the logout route when clicked
+  }
+  // JavaScript for toggling the menu
+  document.getElementById('menu-toggle').addEventListener('click', function () {
+    var menu = document.getElementById('menu');
+    menu.classList.toggle('hidden');
+  });
+
+</script>
 
 </html>
