@@ -29,15 +29,15 @@
       <!-- Main Content Section -->
       <div class="p-4 mt-20 w-full md:w-3/4">
         <!-- Row 1 -->
-        <div class=" grid grid-cols-1 md:grid-cols-2 gap-10 mx-24">
+        <div class=" grid grid-cols-1 md:grid-cols-2 gap-10 mx-18">
           <!-- First Column (Bigger) -->
           <div class="md:col-span-1">
 
-            <div class="p-10 bg-gray-900 shadow-md rounded-md">
+            <div class="p-10 bg-gray-900 my-7 w-full shadow-md rounded-md">
               <!-- Balances Section -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Placeholder for Balance Section -->
-                <div class="bg-blue-100 p-6 rounded-md">
+                <div class="bg-blue-100 p-2 rounded-md">
                   <h3 class="text-lg font-semibold mb-2">Available Balance</h3>
                   <p class="text-xl font-bold">$ <%= user.available.toLocaleString() %>.00</p>
                 </div>
@@ -45,8 +45,8 @@
                 <h3 class="text-lg font-semibold mb-2">Savings Balance</h3>
                 <p class="text-xl font-bold">$ <%= user.savings.toLocaleString() %>.00</p>
               </div> -->
-                <div class="bg-yellow-100 p-4 rounded-md">
-                  <h3 class="text-lg font-semibold mb-2">Fixed Deposit Balance</h3>
+                <div class="bg-yellow-100 p-2 rounded-md">
+                  <h3 class="text-lg font-semibold mb-2">Fixed Deposit Bal.</h3>
                   <p class="text-xl font-bold">$ <%= user.fixed.toLocaleString() %>.00</p>
                 </div>
               </div>
