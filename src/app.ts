@@ -10,6 +10,7 @@ import { loginResponse } from "./utils/login-response";
 import { Console, error } from "console";
 import Message from "./models/messages.model";
 import moment from "moment";
+import { Country } from "country-state-city";
 const app: Application = express();
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -162,17 +163,29 @@ app.get("/login", (req: Request, res: Response) => {
   res.render("login.ejs", { error });
 });
 app.get("/signup", (req: Request, res: Response) => {
-  res.render("signup.ejs", { error });
+  const countriess = Country.getAllCountries();
+  res.render("signup.ejs", { countriess, error });
 });
 app.post("/signup", async (req: Request, res: Response) => {
-  const email = req.body.email;
-  const password = req.body.password;
+
+
   const firstName = req.body.firstName;
+  const middleName = req.body.middleName;
   const lastName = req.body.lastName;
+  const country = req.body.country;
+  const state = req.body.state;
   const dob = req.body.dob;
-  const maritalStatus = req.body.maritalStatus;
-  const confirmPassword = req.body.confirmPassword;
+  const homeAddress = req.body.homeAddress;
+  const phone = req.body.phone;
+  const occupation = req.body.occupation;
+  const annualIncomeRange = req.body.annualIncomeRange;
   const ssn = req.body.ssn;
+  const accountType = req.body.accountType;
+  const accountCurrency = req.body.accountCurrency;
+  const maritalStatus = req.body.maritalStatus;
+  const password = req.body.password;
+  const email = req.body.email;
+  const confirmPassword = req.body.confirmPassword;
   const tc = req.body.tc;
   const status = true;
   try {
@@ -194,6 +207,15 @@ app.post("/signup", async (req: Request, res: Response) => {
     const userData: Partial<IUser> = {
       firstName,
       lastName,
+      middleName,
+      country,
+      state,
+      homeAddress,
+      phone,
+      occupation,
+      annualIncomeRange,
+      accountCurrency,
+      accountType,
       dob,
       maritalStatus,
       email,

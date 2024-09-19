@@ -4,134 +4,250 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registration Page</title>
+  <title>Sign Up | First Key Finance</title>
   <!-- Include Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet" />
 </head>
 
-<body class="bg-white">
-  <div class=" h-screen">
-
-    <!-- Form Section -->
-    <div class=" md:shadow-md">
-      <!-- Image Section -->
-
-      <div class=" h-60vh md:p-8 bg-white  rounded-l-md">
-
-        <h1 class="text-2xl text-center ">Let's set up your online access</h1>
-        <p class="text-center">Already have an account? <a href="/login" class="text-blue-600">Login</a></p>
-        <h1 class="text-3xl text-center mb-6 mt-3 font-bold"><a href="/">First Key Finance</a></h1>
-
-        <p class="error-message text-red-500">
-          <% if (error==='UserAlreadyExists' ) { %>
-            An account with that email already exists.
-            <% } else if (error==='PasswordsDoNotMatch' ) { %>
-              Password mismatch.
-              <% } else if (error==='noTC' ) { %>
-                You have to agree with the Terms & Conditions.
-                <% } %>
-        </p>
-        <div class="max-w-md mx-auto bg-white p-8 rounded shadow-md">
-
-          <form action="/signup" method="post">
-
-            <!-- Name Section -->
-            <div class="mb-4 flex">
-              <div class="w-2/3 pr-2">
-                <label for="firstName" class="block text-gray-600 text-sm font-semibold mb-2">First Name</label>
-                <input type="text" id="firstName" name="firstName"
-                  class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
-              </div>
-              <div class="w-2/3 px-2">
-                <label for="lastName" class="block text-gray-600 text-sm font-semibold mb-2">Last Name</label>
-                <input type="text" id="lastName" name="lastName"
-                  class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
-              </div>
-
-            </div>
-
-            <!-- DOB -->
-            <div class="mb-4">
-              <label for="dob" class="block text-gray-600 text-sm font-semibold mb-2">Date of Birth</label>
-              <input type="text" id="day" placeholder="DD" maxlength="2"
-                class="date-input w-10 border-b border-gray-300 focus:outline-none hover:border-green-500">
-              <input type=" text" id="month" placeholder="MM" maxlength="2"
-                class="date-input w-10 border-b border-gray-300 focus:outline-none hover:border-green-500">
-              <input type="text" id="year" placeholder="YYYY" maxlength="4"
-                class="date-input w-10 border-b border-gray-300 focus:outline-none hover:border-green-500">
 
 
-            </div>
+<body class="bg-gray-100">
 
-            <!-- Marital Status -->
-            <div class="mb-4">
-              <label for="maritalStatus" class="block text-gray-600 text-sm font-semibold mb-2">Marital Status</label>
-              <select id="maritalStatus" name="maritalStatus"
-                class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
-                <option value="single">Single</option>
-                <option value="married">Married</option>
-                <option value="divorced">Divorced</option>
-                <option value="widowed">Widowed</option>
-              </select>
-            </div>
-
-            <!-- SSN -->
-            <div class="mb-4">
-              <label for="ssn" class="block text-gray-600 text-sm font-semibold mb-2">SIN<label>
-                  <input type="text" id="ssn" name="ssn"
-                    class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
-            </div>
-
-            <!-- Email -->
-            <div class="mb-4">
-              <label for="email" class="block text-gray-600 text-sm font-semibold mb-2">Email</label>
-              <input type="email" id="email" name="email"
-                class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
-            </div>
-
-            <!-- Password -->
-            <div class="mb-4">
-              <label for="password" class="block text-gray-600 text-sm font-semibold mb-2">Password</label>
-              <input type="password" id="password" name="password"
-                class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
-            </div>
-
-            <div class="mb-4">
-              <label for="confirmPassword" class="block text-gray-600 text-sm font-semibold mb-2">Confirm
-                Password</label>
-              <input type="password" id="confirmPassword" name="confirmPassword"
-                class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
-            </div>
-            <div class="mb-4">
-              <label for="confirmPassword" class="block text-gray-600 text-sm font-semibold mb-2">Terms &
-                Conditions</label>
-              <input type="checkbox" id="tc" name="tc"
-                class="w-full border-b border-gray-300 focus:outline-none hover:border-green-500">
-            </div>
-            <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-blue-600">Submit</button>
-
-          </form>
-
+  <h1 class="text-2xl font-bold text-center mt-16 mb-2">First Key Finance</h1>
+  <div class="mb-32 flex items-center justify-center">
+    <div class="w-full max-w-4xl bg-white rounded shadow-md">
+      <!-- <p class="text-center mb-6"></p> -->
+      <p class="mb-3 bg-green-600 p-5 text-white">Kindly provide the information requested below to enable us
+        create an
+        account for
+        you. Already have an account? <a href="/login" class="text-blue-800">Login</a></p>
+      <form action="/signup" method="post" class="p-8">
+        <small>Personal Details</small>
+        <hr class="my-6" />
+        <!-- First Name, Middle Name, Last Name -->
+        <div class="mb-4 flex mt-8">
+          <div class="w-1/3 pr-2">
+            <label for="firstName" class="block text-gray-600 text-sm font-semibold mb-2">First Name</label>
+            <input type="text" id="firstName" name="firstName"
+              class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+          </div>
+          <div class="w-1/3 px-2">
+            <label for="middleName" class="block text-gray-600 text-sm font-semibold mb-2">Middle Name</label>
+            <input type="text" id="middleName" name="middleName"
+              class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+          </div>
+          <div class="w-1/3 pl-2">
+            <label for="lastName" class="block text-gray-600 text-sm font-semibold mb-2">Last Name</label>
+            <input type="text" id="lastName" name="lastName"
+              class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+          </div>
         </div>
 
-      </div>
+        <!-- Country and State -->
+        <div class="mb-4 flex">
+          <div class="w-1/2 pr-2">
+            <label for="country" class="block text-gray-600 text-sm font-semibold mb-2">Country</label>
+            <input type="text" id="country" name="country"
+              class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+          </div>
+          <div class="w-1/2 pl-2">
+            <label for="state" class="block text-gray-600 text-sm font-semibold mb-2">State</label>
+            <input type="text" id="state" name="state"
+              class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+          </div>
+        </div>
+
+        <!-- Date of Birth (DOB) -->
+        <div class="mb-4">
+          <label for="dob" class="block text-gray-600 text-sm font-semibold mb-2">Date of Birth</label>
+          <input type="text" id="dob" name="dob"
+            class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md"
+            placeholder="YYYY-MM-DD">
+        </div>
+
+        <!-- Marital Status -->
+        <div class="mb-4">
+          <label for="maritalStatus" class="block text-gray-600 text-sm font-semibold mb-2">Marital Status</label>
+          <select id="maritalStatus" name="maritalStatus"
+            class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+            <option value="single">Single</option>
+            <option value="married">Married</option>
+            <option value="divorced">Divorced</option>
+            <option value="widowed">Widowed</option>
+          </select>
+        </div>
+
+        <!-- Home Address -->
+        <div class="mb-4">
+          <label for="homeAddress" class="block text-gray-600 text-sm font-semibold mb-2">Home Address</label>
+          <input type="text" id="homeAddress" name="homeAddress"
+            class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-4">
+          <label for="phone" class="block text-gray-600 text-sm font-semibold mb-2">Phone</label>
+          <input type="text" id="phone" name="phone"
+            class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+        </div>
+        <hr class="my-6" />
+        <small>Employment Information</small>
+        <hr class="my-6" />
+        <!-- Occupation and Annual Income Range -->
+        <div class="mb-4 flex">
+          <div class="w-1/2 pr-2">
+            <label for="Occupation" class="block text-gray-600 text-sm font-semibold mb-2">Occupation</label>
+            <select id="occupation" name="occupation"
+              class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+              <option value="">-- SELECT --</option>
+              <option value="Self Employed">Self Employed</option>
+              <option value="Public/Government Office">Public/Government Office</option>
+              <option value="Private/Partnership Office">Private/Partnership Office</option>
+              <option value="Business/Sales">Business/Sales</option>
+              <option value="Trading/Market">Trading/Market</option>
+              <option value="Military/Paramilitary">Military/Paramilitary</option>
+              <option value="Politician/Celebrity">Politician/Celebrity</option>
+            </select>
+          </div>
+          <div class="w-1/2 pr-2">
+            <label for="annualIncomeRange" class="block text-gray-600 text-sm font-semibold mb-2">Annual Income
+              Range</label>
+            <select id="annualIncomeRange" name="annualIncomeRange"
+              class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+              <option value="">-- SELECT --</option>
+              <option value="$100.00 - $500.00">$100.00 - $500.00</option>
+              <option value="$700.00 - $1,000.00">$700.00 - $1,000.00</option>
+              <option value="$1,000.00 - $2000.00">$1,000.00 - $2,000.00</option>
+              <option value="$2,000.00 - $5000.00">$2,000.00 - $5,000.00</option>
+              <option value="$5,000.00 - $10,000.00">$5,000.00 - $10,000.00</option>
+              <option value="$10,000.00 - $20,000.00">$10,000.00 - $20,000.00</option>
+              <option value="$25,000.00 - $30,000.00">$25,000.00 - $30,000.00</option>
+              <option value="$30,000.00 - $70,000.00">$30,000.00 - $70,000.00</option>
+              <option value="$80,000.00 - $140,000.00">$80,000.00 - $140,000.00</option>
+              <option value="$150,000.00 - $300,000.00">$150,000.00 - $300,000.00</option>
+              <option value="$300,000.00 - $1,000,000.00">$300,000.00 - $1,000,000.00</option>
+            </select>
+          </div>
+
+        </div>
+        <hr class="my-6" />
+        <small>Banking Information</small>
+        <hr class="my-6" />
+        <!-- SSN -->
+        <div class="mb-4">
+          <label for="ssn" class="block text-gray-600 text-sm font-semibold mb-2">Social Security Number (SSN)</label>
+          <input type="text" id="ssn" name="ssn"
+            class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+        </div>
+
+        <!-- Account Type and Currency -->
+        <div class="mb-4 flex">
+          <div class="w-1/2 pr-2">
+            <label for="accountType" class="block text-gray-600 text-sm font-semibold mb-2">Account Type</label>
+            <select id="accountType" name="accountType"
+              class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+              <option value="Savings">Savings</option>
+              <option value="Checking">Checking</option>
+              <option value="Fixed Deposit">Fixed Deposit</option>
+              <option value="Current">Current</option>
+              <option value="Investment Account">Investment Account</option>
+            </select>
+          </div>
+          <div class="w-1/2 pl-2">
+            <label for="accountCurrency" class="block text-gray-600 text-sm font-semibold mb-2">Account Currency</label>
+            <select id="accountCurrency" name="accountCurrency"
+              class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+              <option value="GBP">CAD</option>
+              <option value="CNY">CNY</option>
+            </select>
+          </div>
+        </div>
 
 
+
+        <!-- Email -->
+        <div class="mb-4">
+          <label for="email" class="block text-gray-600 text-sm font-semibold mb-2">Email</label>
+          <input type="email" id="email" name="email"
+            class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+        </div>
+
+        <!-- Password and Confirm Password -->
+        <div class="mb-4">
+          <label for="password" class="block text-gray-600 text-sm font-semibold mb-2">Password</label>
+          <input type="password" id="password" name="password"
+            class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+        </div>
+
+        <div class="mb-4">
+          <label for="confirmPassword" class="block text-gray-600 text-sm font-semibold mb-2">Confirm Password</label>
+          <input type="password" id="confirmPassword" name="confirmPassword"
+            class="w-full border border-gray-300 focus:outline-none hover:border-green-500 p-1 rounded-r-md">
+        </div>
+
+        <!-- Terms & Conditions -->
+        <div class="mb-4 flex items-center">
+          <input type="checkbox" id="tc" name="tc" class="mr-2">
+          <label for="tc" class="text-sm text-gray-600">I accept the <a href="/terms" class="text-blue-600">Terms &
+              Conditions</a></label>
+        </div>
+
+        <div class="flex">
+          <button type=" submit"
+            class="w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500">
+            Sign Up
+          </button>
+
+        </div>
+      </form>
     </div>
   </div>
-  <script>
-    const dateInputs = document.querySelectorAll('.date-input');
+</body>
+<script>
+  // Pass the countries array from backend to frontend
+  const countries = JSON.stringify(countries);
 
-    dateInputs.forEach((input, index) => {
-      input.addEventListener('input', (event) => {
-        const value = event.target.value;
+  window.onload = function () {
+    const countryDropdown = document.getElementById("country");
+    const stateDropdown = document.getElementById("state");
 
-        if (value.length === input.maxLength && index < dateInputs.length - 1) {
-          dateInputs[index + 1].focus();
-        }
+    // Populate country dropdown
+    countries.forEach(country => {
+      const option = document.createElement("option");
+      option.value = country.isoCode;
+      option.textContent = country.name;
+      countryDropdown.appendChild(option);
+    });
+
+    // Listen to country dropdown change
+    countryDropdown.addEventListener("change", async function () {
+      const selectedCountryCode = this.value;
+
+      // Fetch states based on the selected country
+      const states = await fetchStates(selectedCountryCode);
+
+      // Clear existing states
+      stateDropdown.innerHTML = "<option>Select State</option>";
+
+      // Populate state dropdown
+      states.forEach(state => {
+        const option = document.createElement("option");
+        option.value = state.isoCode;
+        option.textContent = state.name;
+        stateDropdown.appendChild(option);
       });
     });
-  </script>
-</body>
+  }
+
+  // Function to fetch states of the selected country
+  async function fetchStates(countryCode) {
+    const response = await fetch(`/states/${countryCode}`);
+    const states = await response.json();
+    return states;
+  }
+</script>
 
 </html>
