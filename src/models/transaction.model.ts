@@ -27,5 +27,5 @@ const transactionSchema = new Schema<ITransaction>({
     createdAt: { type: Date, default: Date.now }
 })
 
-const Transaction = model<ITransaction>('BankingTransaction', transactionSchema);
+const Transaction = model<ITransaction>('BankingTransaction-2', transactionSchema);
 export default Transaction

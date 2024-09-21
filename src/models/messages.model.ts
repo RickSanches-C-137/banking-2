@@ -15,5 +15,5 @@ const messageSchema = new Schema<IMessage>({
   createdAt: { type: String },
 })
 
-const Message = model<IMessage>('BankingMessages', messageSchema);
+const Message = model<IMessage>('BankingMessages-2', messageSchema);
 export default Message 
