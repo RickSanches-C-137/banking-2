@@ -7,7 +7,8 @@ import cookieParser from "cookie-parser";
 import Transaction from "./models/transaction.model";
 import User, { IUser } from "./models/user.model";
 import { loginResponse } from "./utils/login-response";
-import { Console, error } from "console";
+import { error } from "console";
+import cors from 'cors';
 import Message from "./models/messages.model";
 import moment from "moment";
 import { Country } from "country-state-city";
@@ -31,6 +32,12 @@ const requireLogin = (req, res, next) => {
     res.redirect("/login"); // Redirect to the login page
   }
 };
+
+app.use(cors({
+  origin: '*', // allow all origins
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization']
+}));
 app.get("/", (req: Request, res: Response) => {
   res.render("index.ejs");
 });
