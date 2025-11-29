@@ -1,6 +1,5 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-// import Logger from "./logger";
 import ejs from "ejs";
 
 dotenv.config();
@@ -25,10 +24,10 @@ export class EmailService {
         html,
       });
 
-      // logger.log("✅ Email sent", { messageId: info.messageId });
+      console.log("✅ Email sent", { messageId: info.messageId });
       return info;
     } catch (error) {
-      // logger.error("❌ Email send error", { error });
+       console.log("❌ Email send error", { error });
       throw new Error("Email not sent");
     }
   }
