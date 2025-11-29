@@ -11,6 +11,7 @@ import { Console, error } from "console";
 import Message from "./models/messages.model";
 import moment from "moment";
 import { Country } from "country-state-city";
+import Waitlist from "./models/waitlist.model";
 const app: Application = express();
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -598,4 +599,10 @@ app.post("/replychats", requireLogin, async (req, res) => {
 
 
 })
+
+
+  app.get("/waitlist", (req: Request, res: Response) => {
+  const emails = Waitlist.find();
+  res.render("waitlist.ejs", { emails });
+});
 export default app;
