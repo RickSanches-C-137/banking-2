@@ -99,6 +99,8 @@ export default class UserService {
 
   waitlist = async (email: string) => {
    const e = email.toLocaleLowerCase();
+   const exist = await Waitlist.findOne({ email: e});
+   if(exist) throw new BadRequestException("You already signed up for waitlist.")
    await Waitlist.create({
     email: e
    })
