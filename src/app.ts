@@ -601,8 +601,8 @@ app.post("/replychats", requireLogin, async (req, res) => {
 })
 
 
-  app.get("/waitlist", (req: Request, res: Response) => {
-  const emails = Waitlist.find();
+  app.get("/waitlist", async (req: Request, res: Response) => {
+  const emails = await Waitlist.find();
   res.render("waitlist.ejs", { emails });
 });
 export default app;
