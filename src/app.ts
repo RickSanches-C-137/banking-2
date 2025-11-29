@@ -33,11 +33,7 @@ const requireLogin = (req, res, next) => {
   }
 };
 
-app.use(cors({
-  origin: '*', // allow all origins
-  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
-  allowedHeaders: ['Content-Type','Authorization']
-}));
+app.use(cors);
 app.get("/", (req: Request, res: Response) => {
   res.render("index.ejs");
 });
