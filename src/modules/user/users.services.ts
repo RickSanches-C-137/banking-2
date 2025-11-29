@@ -102,7 +102,7 @@ export default class UserService {
    await Waitlist.create({
     email: e
    })
-   await this.emailService.sendWelcomeEmail(email)
+  //  await this.emailService.sendWelcomeEmail(email)
    return "Thank you for joining the Bucks waitlist"
   };
 }
