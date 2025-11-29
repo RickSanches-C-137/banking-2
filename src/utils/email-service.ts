@@ -6,8 +6,8 @@ dotenv.config();
 
 const transporter = nodemailer.createTransport({
   host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: Number(process.env.SMTP_PORT) === 465, // true for 465, false for 587
+  port: 587,
+  secure: false, // true for 465, false for 587
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
@@ -35,7 +35,6 @@ export class EmailService {
   /**
    * Send a welcome email to new users
    * @param to - Recipient email
-   * @param firstName - Recipient's first name
    */
 async sendWelcomeEmail(to: string) {
   const subject = "🎉 Welcome to the Waitlist!";
