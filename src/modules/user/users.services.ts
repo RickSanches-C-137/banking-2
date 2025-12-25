@@ -1,19 +1,10 @@
 import bcrypt from "bcryptjs";
-import axios from "axios"; // Import axios here
 import { SignInBody, SignUpBody, resetPassword } from "./interface/users.types";
 import User, { IUser } from "../../models/user.model";
 import { BadRequestException } from "../../utils/service-exception";
 import { loginResponse } from "../../utils/login-response";
-import Waitlist from "../../models/waitlist.model";
-import { EmailService } from "../../utils/email-service";
 
 export default class UserService {
-  private emailService: EmailService;
-
-  constructor() {
-    this.emailService = new EmailService();
-  }
-
   signUp = async (payload: SignUpBody) => {
     try {
       payload.email = payload.email;
