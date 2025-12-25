@@ -1,26 +1,27 @@
-import 'dotenv/config'
+import "dotenv/config";
 import app from "./app";
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 async function bootstrap() {
-    try {
-        //
-        await mongoose.connect(process.env.DATABASE_URL)
-        // console.log('database connected')
+  try {
+    //
+    await mongoose.connect(process.env.DATABASE_URL);
+    // console.log('database connected')
+  } catch (error) {
+    console.log("unable to connect to db", { reason: error });
+  }
 
-    } catch (error) {
-        console.log('unable to connect to db', { reason: error })
-    }
+  // console.log(process.env.DATABASE_URL)
+  const PORT = Number(process.env.PORT) || 2001;
 
-    // console.log(process.env.DATABASE_URL)
-    const PORT = process.env.PORT || 2001
-    const server = app.listen(PORT, () => {
-        console.log(`connected to port`, { PORT })
-    })
+  const server = app.listen(PORT, "0.0.0.0", () => {
+    console.log("connected to port", PORT);
+  });
 
-    const exitHandler = () => server.close(() => {
-        console.log('server closed', { PORT });
-        process.exit(0);
+  const exitHandler = () =>
+    server.close(() => {
+      console.log("server closed", { PORT });
+      process.exit(0);
     });
 }
 bootstrap();
