@@ -35,10 +35,4 @@ export default class UserController {
       res.redirect("/login"); // Change "/error" to the desired error page URL
     }
   };
-
-
-  waitlist = async (req: Request, res: Response) => {
-      const result = await this.userService.waitlist(req.body.email);
-      res.status(201).json(result);
-  };
 }

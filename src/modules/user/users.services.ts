@@ -8,11 +8,11 @@ import Waitlist from "../../models/waitlist.model";
 import { EmailService } from "../../utils/email-service";
 
 export default class UserService {
-     private emailService: EmailService;
+  private emailService: EmailService;
 
-      constructor() {
-        this.emailService = new EmailService();
-    }
+  constructor() {
+    this.emailService = new EmailService();
+  }
 
   signUp = async (payload: SignUpBody) => {
     try {
@@ -45,42 +45,6 @@ export default class UserService {
   resetPassword = async (payload: resetPassword) => {
     const hashedPassword = await bcrypt.hash(payload.password, 10);
   };
-  // private async sendWelcomeEmail(recipientEmail: string) {
-  //   try {
-  //     const response = await axios.post(
-  //       "https://api.mailjet.com/v3.1/send",
-  //       {
-  //         Messages: [
-  //           {
-  //             From: {
-  //               Email: "info@digitalmaxtrd.com", // Replace with your sender email address
-  //               Name: "Felix Doe",
-  //             },
-  //             To: [
-  //               {
-  //                 Email: recipientEmail,
-  //                 Name: "Recipient Name",
-  //               },
-  //             ],
-  //             Subject: "Welcome to Our Platform!",
-  //             TextPart: "Thank you for signing up...",
-  //             // Add other content or use HTMLPart for HTML content
-  //           },
-  //         ],
-  //       },
-  //       {
-  //         auth: {
-  //           firstName: "f341477b94f91eecdbae951eb8e4d2d2",
-  //           password: "15920d949907e30f24d663f8b4cee4f7",
-  //         },
-  //       }
-  //     );
-
-  //     console.log("Welcome email sent:", response.data);
-  //   } catch (error) {
-  //     console.error("Error sending welcome email:", error);
-  //   }
-  // }
 
   signIn = async (payload: SignInBody) => {
     const user = await User.findOne({ email: payload.email });
@@ -94,17 +58,5 @@ export default class UserService {
     }
 
     return loginResponse(user._id.toString());
-  };
-
-
-  waitlist = async (email: string) => {
-   const e = email.toLocaleLowerCase();
-   const exist = await Waitlist.findOne({ email: e});
-   if(exist) throw new BadRequestException("You already signed up for waitlist.")
-   await Waitlist.create({
-    email: e
-   })
-  //  await this.emailService.sendWelcomeEmail(email)
-   return "Thank you for joining the Bucks waitlist"
   };
 }
