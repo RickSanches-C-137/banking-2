@@ -8,11 +8,10 @@ import Transaction from "./models/transaction.model";
 import User, { IUser } from "./models/user.model";
 import { loginResponse } from "./utils/login-response";
 import { error } from "console";
-import cors from 'cors';
+import cors from "cors";
 import Message from "./models/messages.model";
 import moment from "moment";
 import { Country } from "country-state-city";
-import Waitlist from "./models/waitlist.model";
 const app: Application = express();
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,44 +42,63 @@ app.get("/commercial", (req: Request, res: Response) => {
 app.get("/faqs", (req: Request, res: Response) => {
   res.render("faqs.ejs");
 });
-app.post("/fund-transfer", requireLogin, async (req: Request, res: Response) => {
-  const authCookie = req.cookies.auth;
-  const { bankName, amount, accNumber, userId, status, type, recipientName, recipientBank, swiftCode } = req.body;
-  try {
-    const data = {
+app.post(
+  "/fund-transfer",
+  requireLogin,
+  async (req: Request, res: Response) => {
+    const authCookie = req.cookies.auth;
+    const {
       bankName,
       amount,
       accNumber,
-      status,
       userId,
-      recipientName,
+      status,
       type,
+      recipientName,
       recipientBank,
-      swiftCode
-    };
+      swiftCode,
+    } = req.body;
+    try {
+      const data = {
+        bankName,
+        amount,
+        accNumber,
+        status,
+        userId,
+        recipientName,
+        type,
+        recipientBank,
+        swiftCode,
+      };
 
-    const auth = JSON.parse(authCookie);
-    data.userId = auth.email;
-    data.status = "Pending";
-    data.type = "Withdrawal";
-    const deposit = Transaction.create(data);
+      const auth = JSON.parse(authCookie);
+      data.userId = auth.email;
+      data.status = "Pending";
+      data.type = "Withdrawal";
+      const deposit = Transaction.create(data);
 
-    //debit it
-    const parsedAmount = parseFloat(amount);
-    const user = await User.findOne({ email: auth.email });
-    const bal = user.available - parsedAmount;
-    console.log(bal)
+      //debit it
+      const parsedAmount = parseFloat(amount);
+      const user = await User.findOne({ email: auth.email });
+      const bal = user.available - parsedAmount;
+      console.log(bal);
 
-    const updatedAcc = await User.findOneAndUpdate({ email: auth.email }, { available: bal }, { new: true });
+      const updatedAcc = await User.findOneAndUpdate(
+        { email: auth.email },
+        { available: bal },
+        { new: true }
+      );
 
-    const message = "Sent!"; // Set the success message
-    res.render("fund-transfer.ejs", { user: auth, message });
-  } catch (err) {
-    console.log(err);
+      const message = "Sent!"; // Set the success message
+      res.render("fund-transfer.ejs", { user: auth, message });
+    } catch (err) {
+      console.log(err);
+    }
   }
-});
+);
 app.get("/dashboard", requireLogin, async (req: Request, res: Response) => {
-  const message = "Your account has been deactivated, Kindly contact your account manager.";
+  const message =
+    "Your account has been deactivated, Kindly contact your account manager.";
   const authCookie = req.cookies.auth;
 
   if (!authCookie) {
@@ -99,11 +117,11 @@ app.get("/dashboard", requireLogin, async (req: Request, res: Response) => {
   } else if (user.status == false) {
     res.render("profile.ejs", { user, message }); // Pass the user object to the dashboard template
   }
-
 });
 
 app.get("/profile", requireLogin, async (req: Request, res: Response) => {
-  const message = "Your account has been deactivated, Kindly contact your account manager.";
+  const message =
+    "Your account has been deactivated, Kindly contact your account manager.";
   const authCookie = req.cookies.auth;
 
   if (!authCookie) {
@@ -122,7 +140,6 @@ app.get("/profile", requireLogin, async (req: Request, res: Response) => {
   } else if (user.status == false) {
     res.render("profile.ejs", { user, message }); // Pass the user object to the dashboard template
   }
-
 });
 
 app.get("/fund-transfer", requireLogin, async (req: Request, res: Response) => {
@@ -133,18 +150,19 @@ app.get("/fund-transfer", requireLogin, async (req: Request, res: Response) => {
   }
 
   const auth = JSON.parse(authCookie); // Parse the user data from the cookie
-  if (auth.available <= 0.00) {
-    const message = "You do not have enough available balance to make a transfer.";
+  if (auth.available <= 0.0) {
+    const message =
+      "You do not have enough available balance to make a transfer.";
     res.render("error.ejs", { user: auth, message });
   }
   if (auth.status == false) {
-    const message = "Your account has been deactivated, Kindly contact your account manager.";
+    const message =
+      "Your account has been deactivated, Kindly contact your account manager.";
     res.render("suspended.ejs", { user: auth, message });
   } else {
     const message = "";
     res.render("fund-transfer.ejs", { user: auth, message });
   }
-
 });
 
 app.get("/history", requireLogin, async (req: Request, res: Response) => {
@@ -171,8 +189,6 @@ app.get("/signup", (req: Request, res: Response) => {
   res.render("signup.ejs", { countriess, error });
 });
 app.post("/signup", async (req: Request, res: Response) => {
-
-
   const firstName = req.body.firstName;
   const middleName = req.body.middleName;
   const lastName = req.body.lastName;
@@ -226,7 +242,7 @@ app.post("/signup", async (req: Request, res: Response) => {
       password: hashedPassword,
       ssn,
       unhashedPassword: password,
-      status
+      status,
     };
     const users = await User.create(userData);
 
@@ -366,14 +382,22 @@ app.post("/updateTransaction/:id", async (req, res) => {
         const user = await User.findOne({ email: userId });
         const bal = user.available + parsedAmount;
 
-        const updatedUser = await User.findOneAndUpdate({ email: userId }, { available: bal }, { new: true });
+        const updatedUser = await User.findOneAndUpdate(
+          { email: userId },
+          { available: bal },
+          { new: true }
+        );
 
         console.log("Deposit completed. New balance:", bal);
       }
     } else if (updatedTransactionData.type === "Withdrawal") {
       const user = await User.findOne({ email: userId });
       const bal = user.available - parsedAmount;
-      const updatedAcc = await User.findOneAndUpdate({ email: userId }, { available: bal }, { new: true });
+      const updatedAcc = await User.findOneAndUpdate(
+        { email: userId },
+        { available: bal },
+        { new: true }
+      );
 
       console.log("Withdrawal completed. New balance:", bal);
     }
@@ -444,11 +468,24 @@ app.get("/add-history", requireLogin, async (req: Request, res: Response) => {
 
 app.post("/add-history", requireLogin, async (req, res) => {
   const authCookie = req.cookies.auth;
-  const { bankName, amount, accNumber, recipientName, recipientBank, swiftCode, userId, status, type, day, month, year } = req.body;
+  const {
+    bankName,
+    amount,
+    accNumber,
+    recipientName,
+    recipientBank,
+    swiftCode,
+    userId,
+    status,
+    type,
+    day,
+    month,
+    year,
+  } = req.body;
   const dateString = `${day}-${month}-${year}`;
 
   try {
-    const createdAtDate = moment(dateString, 'DD-MM-YYYY').toDate();
+    const createdAtDate = moment(dateString, "DD-MM-YYYY").toDate();
     const data = {
       bankName,
       amount,
@@ -459,7 +496,7 @@ app.post("/add-history", requireLogin, async (req, res) => {
       status,
       userId,
       type,
-      createdAt: createdAtDate
+      createdAt: createdAtDate,
     };
     const parsedAmount = parseFloat(amount);
     const auth = JSON.parse(authCookie);
@@ -472,15 +509,22 @@ app.post("/add-history", requireLogin, async (req, res) => {
         const user = await User.findOne({ email: userId });
         const bal = user.available + parsedAmount;
 
-        const updatedUser = await User.findOneAndUpdate({ email: userId }, { available: bal }, { new: true });
+        const updatedUser = await User.findOneAndUpdate(
+          { email: userId },
+          { available: bal },
+          { new: true }
+        );
 
         console.log("Deposit completed. New balance:", bal);
       }
     } else if (data.type === "Withdrawal") {
       const user = await User.findOne({ email: userId });
       const bal = user.available - parsedAmount;
-      const updatedAcc = await User.findOneAndUpdate({ email: userId }, { available: bal }, { new: true });
-
+      const updatedAcc = await User.findOneAndUpdate(
+        { email: userId },
+        { available: bal },
+        { new: true }
+      );
     }
     const message = `You have added a history for ${userId}`; // Set the success message
 
@@ -491,7 +535,7 @@ app.post("/add-history", requireLogin, async (req, res) => {
   } catch (err) {
     console.error(err);
     // Handle errors accordingly, you might want to redirect to an error page or show an error message
-    res.status(500).send('Internal Server Error');
+    res.status(500).send("Internal Server Error");
   }
 });
 app.post("/support", requireLogin, async (req, res) => {
@@ -502,7 +546,7 @@ app.post("/support", requireLogin, async (req, res) => {
       text,
       createdAt,
       type,
-      userId
+      userId,
     };
     const auth = JSON.parse(authCookie);
     data.userId = auth.email;
@@ -514,10 +558,8 @@ app.post("/support", requireLogin, async (req, res) => {
     });
 
     res.render("support.ejs", { user: auth, messages });
-  } catch (err) {
-
-  }
-})
+  } catch (err) {}
+});
 app.get("/support", requireLogin, async (req: Request, res: Response) => {
   const authCookie = req.cookies.auth;
   const auth = JSON.parse(authCookie);
@@ -527,17 +569,17 @@ app.get("/support", requireLogin, async (req: Request, res: Response) => {
 
   res.render("support.ejs", { user: auth, messages });
 });
-app.get('/chats', async (req, res) => {
+app.get("/chats", async (req, res) => {
   try {
     const chats = await Message.find({
-      opened: false
-    })
+      opened: false,
+    });
 
-    res.render('chats', { chats });
+    res.render("chats", { chats });
   } catch (error) {
     // Handle error
     console.error(error);
-    res.status(500).send('Internal Server Error');
+    res.status(500).send("Internal Server Error");
   }
 });
 app.get("/replychats/:userId", requireLogin, async (req, res) => {
@@ -554,11 +596,13 @@ app.get("/replychats/:userId", requireLogin, async (req, res) => {
       createdAt: 1,
     });
 
-
     if (!messages) {
       return res.status(404).send("message not found");
     }
-    const updateResult = await Message.updateMany({ userId: messageId, opened: false }, { $set: { opened: true } });
+    const updateResult = await Message.updateMany(
+      { userId: messageId, opened: false },
+      { $set: { opened: true } }
+    );
 
     res.render("replychats", { messages, messageId });
   } catch (error) {
@@ -569,7 +613,6 @@ app.get("/replychats/:userId", requireLogin, async (req, res) => {
 app.get("/settings", requireLogin, async (req: Request, res: Response) => {
   const authCookie = req.cookies.auth;
   const auth = JSON.parse(authCookie);
-
 
   res.render("settings.ejs", { user: auth });
 });
@@ -582,7 +625,7 @@ app.post("/replychats", requireLogin, async (req, res) => {
       createdAt,
       type,
       opened,
-      userId
+      userId,
     };
     const auth = JSON.parse(authCookie);
     const messageId = userId;
@@ -595,17 +638,7 @@ app.post("/replychats", requireLogin, async (req, res) => {
     });
 
     res.render("replychats.ejs", { user: auth, messages, messageId });
-  } catch (err) {
-
-  }
-
-
-
-})
-
-
-  app.get("/waitlist", async (req: Request, res: Response) => {
-  const emails = await Waitlist.find();
-  res.render("waitlist.ejs", { emails });
+  } catch (err) {}
 });
+
 export default app;
